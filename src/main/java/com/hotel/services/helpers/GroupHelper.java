@@ -64,7 +64,6 @@ public class GroupHelper {
     }
 
     public List<GroupResponseDto> findAll() {
-
         List<Group> groupResponseDtos = groupRepository.findAll();
         List<GroupResponseDto> responseDtos = new ArrayList<>();
         groupResponseDtos.forEach(
@@ -97,7 +96,7 @@ public class GroupHelper {
 
     public GroupResponseDto findById(Integer id) {
 
-        Group savedGroupRepo = groupRepository.findById(id).get();
+        Group savedGroupRepo = groupRepository.findById(id).orElseThrow(RuntimeException::new);
 
         GroupResponseDto responseDto = new GroupResponseDto();
         GroupObjectDto savedGroup = new GroupObjectDto();

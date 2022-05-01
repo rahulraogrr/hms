@@ -6,4 +6,5 @@ import com.hotel.entites.Hotel;
  * A Hotel
  */
 public interface HotelService{
+
 }

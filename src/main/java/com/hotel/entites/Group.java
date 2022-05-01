@@ -29,6 +29,6 @@ public class Group implements Serializable {
     @JoinColumn(name = "group_address_id", referencedColumnName = "id")
     private Address address;
 
-    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "group", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Hotel> hotels = new HashSet<>();
 }
