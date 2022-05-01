@@ -1,8 +1,10 @@
 package com.hotel.services.impl;
 
-import com.hotel.entites.Group;
-import com.hotel.repositories.GroupRepository;
+import com.hotel.dto.admin.GroupRequestDto;
+import com.hotel.dto.admin.GroupResponseDto;
 import com.hotel.services.GroupService;
+import com.hotel.services.helpers.GroupHelper;
+import com.hotel.services.validators.GroupValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,31 +14,35 @@ import java.util.List;
 public class GroupServiceImpl implements GroupService {
 
     @Autowired
-    private GroupRepository groupRepository;
+    private GroupHelper groupHelper;
+
+    @Autowired
+    private GroupValidator groupValidator;
 
     @Override
-    public Group create(Group group) {
-        return groupRepository.save(group);
+    public GroupResponseDto create(GroupRequestDto requestDto) {
+        groupValidator.validateRequest(requestDto);
+        return groupHelper.createGroup(requestDto);
     }
 
     @Override
-    public List<Group> findAll() {
-        return groupRepository.findAll();
+    public List<GroupResponseDto> findAll() {
+        return groupHelper.findAll();
     }
 
     @Override
-    public Group findById(Integer id) {
-        return groupRepository.findById(id).get();
+    public GroupResponseDto findById(Integer id) {
+        return groupHelper.findById(id);
     }
 
     @Override
     public void deleteById(Integer id) {
-        groupRepository.deleteById(id);
+        groupHelper.deleteById(id);
     }
 
     @Override
-    public Group modify(Integer id, Group group) {
-        //TODO: Group Modify Service
-        return null;
+    public GroupResponseDto modify(Integer id, GroupRequestDto requestDto) {
+        groupValidator.validateRequest(requestDto);
+        return groupHelper.modifyGroup(requestDto);
     }
 }

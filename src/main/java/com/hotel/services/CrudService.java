@@ -5,12 +5,14 @@ import java.util.List;
 /**
  * Generic Crud Interface
  *
- * @param <T,I>
+ * @param <T> Request
+ * @param <R> Response
+ * @param <I> ID
  */
-public interface CrudService<T,I> {
-    T create(T t);
-    List<T> findAll();
-    T findById(I id);
+public interface CrudService<T,R,I> {
+    R create(T t);
+    List<R> findAll();
+    R findById(I id);
     void deleteById(I id);
-    T modify(I id, T t);
+    R modify(I id, T t);
 }

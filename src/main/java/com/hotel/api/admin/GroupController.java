@@ -20,7 +20,7 @@ public class GroupController {
     private GroupService groupService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GroupResponseDto> createGroup(@RequestBody GroupRequestDto groupReqDto){
+    public ResponseEntity<GroupResponseDto> createGroup(@RequestBody GroupRequestDto dto){
         return ResponseEntity.ok(null);
     }
 
