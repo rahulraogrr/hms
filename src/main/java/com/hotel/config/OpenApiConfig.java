@@ -17,11 +17,11 @@ public class OpenApiConfig {
                                 .title("HMS API")
                                 .version("1.0")
                                 .description("Hotel Management System")
-                                .termsOfService("")
+                                .termsOfService("https://github.com/rahulraogrr/hms")
                                 .contact(
                                         new Contact()
                                                 .name("Rahul Rao Gonda")
-                                                .url("")
+                                                .url("https://github.com/rahulraogrr")
                                                 .email("rahulrao.grr@gmail.com")
                                 )
                 );
