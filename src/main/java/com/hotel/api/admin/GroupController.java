@@ -26,17 +26,18 @@ public class GroupController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<GroupResponseDto>> getAllGroups(){
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(groupService.findAll());
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GroupResponseDto> getGroupById(@PathVariable Integer id){
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(groupService.findById(id));
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GroupResponseDto> deleteGroupById(@PathVariable Integer id){
-        return ResponseEntity.ok(null);
+    public ResponseEntity<String> deleteGroupById(@PathVariable Integer id){
+        groupService.deleteById(id);
+        return ResponseEntity.ok("Deleted Successfully");
     }
 
     @PutMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)

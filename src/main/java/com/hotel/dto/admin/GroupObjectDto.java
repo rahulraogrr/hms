@@ -9,6 +9,7 @@ import lombok.Data;
         "name", "status", "address"
 })
 public class GroupObjectDto {
+    private int id;
     private String name;
     private int status;
     private AddressDto address;

@@ -7,6 +7,7 @@ import lombok.Data;
  */
 @Data
 public class AddressDto {
+    private long id;
     private int type;
     private String address1;
     private String address2;

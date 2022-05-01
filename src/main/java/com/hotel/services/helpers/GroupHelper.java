@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -50,10 +51,12 @@ public class GroupHelper {
         savedGroupAddress.setState(savedGroupRepo.getAddress().getState());
         savedGroupAddress.setCountry(savedGroupRepo.getAddress().getCountry());
         savedGroupAddress.setPinCode(savedGroupRepo.getAddress().getPinCode());
+        savedGroupAddress.setId(savedGroupRepo.getAddress().getId());
 
         savedGroup.setAddress(savedGroupAddress);
         savedGroup.setStatus(savedGroupRepo.getStatus());
         savedGroup.setName(savedGroupRepo.getName());
+        savedGroup.setId(savedGroupRepo.getId());
 
         responseDto.setGroup(savedGroup);
 
@@ -61,15 +64,65 @@ public class GroupHelper {
     }
 
     public List<GroupResponseDto> findAll() {
-        return null;
+
+        List<Group> groupResponseDtos = groupRepository.findAll();
+        List<GroupResponseDto> responseDtos = new ArrayList<>();
+        groupResponseDtos.forEach(
+                groupResponseDto -> {
+                    GroupResponseDto responseDto = new GroupResponseDto();
+                    GroupObjectDto savedGroup = new GroupObjectDto();
+                    AddressDto savedGroupAddress = new AddressDto();
+                    savedGroupAddress.setAddress1(groupResponseDto.getAddress().getAddress1());
+                    savedGroupAddress.setAddress2(groupResponseDto.getAddress().getAddress2());
+                    savedGroupAddress.setType(groupResponseDto.getAddress().getType());
+                    savedGroupAddress.setCity(groupResponseDto.getAddress().getCity());
+                    savedGroupAddress.setState(groupResponseDto.getAddress().getState());
+                    savedGroupAddress.setCountry(groupResponseDto.getAddress().getCountry());
+                    savedGroupAddress.setPinCode(groupResponseDto.getAddress().getPinCode());
+                    savedGroupAddress.setId(groupResponseDto.getAddress().getId());
+
+                    savedGroup.setAddress(savedGroupAddress);
+                    savedGroup.setStatus(groupResponseDto.getStatus());
+                    savedGroup.setName(groupResponseDto.getName());
+                    savedGroup.setId(groupResponseDto.getId());
+
+                    responseDto.setGroup(savedGroup);
+
+                    responseDtos.add(responseDto);
+                }
+        );
+
+        return responseDtos;
     }
 
     public GroupResponseDto findById(Integer id) {
-        return null;
+
+        Group savedGroupRepo = groupRepository.findById(id).get();
+
+        GroupResponseDto responseDto = new GroupResponseDto();
+        GroupObjectDto savedGroup = new GroupObjectDto();
+        AddressDto savedGroupAddress = new AddressDto();
+        savedGroupAddress.setAddress1(savedGroupRepo.getAddress().getAddress1());
+        savedGroupAddress.setAddress2(savedGroupRepo.getAddress().getAddress2());
+        savedGroupAddress.setType(savedGroupRepo.getAddress().getType());
+        savedGroupAddress.setCity(savedGroupRepo.getAddress().getCity());
+        savedGroupAddress.setState(savedGroupRepo.getAddress().getState());
+        savedGroupAddress.setCountry(savedGroupRepo.getAddress().getCountry());
+        savedGroupAddress.setPinCode(savedGroupRepo.getAddress().getPinCode());
+        savedGroupAddress.setId(savedGroupRepo.getAddress().getId());
+
+        savedGroup.setAddress(savedGroupAddress);
+        savedGroup.setStatus(savedGroupRepo.getStatus());
+        savedGroup.setName(savedGroupRepo.getName());
+        savedGroup.setId(savedGroupRepo.getId());
+
+        responseDto.setGroup(savedGroup);
+
+        return responseDto;
     }
 
     public void deleteById(Integer id) {
-
+        groupRepository.deleteById(id);
     }
 
     public GroupResponseDto modifyGroup(GroupRequestDto requestDto) {
