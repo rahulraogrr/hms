@@ -1,10 +1,8 @@
 package com.hotel.api.admin;
 
-import com.hotel.dto.admin.GroupRequestDto;
-import com.hotel.dto.admin.GroupResponseDto;
-import com.hotel.services.GroupService;
+import com.hotel.dto.admin.HotelRequestDto;
+import com.hotel.dto.admin.HotelResponseDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,35 +10,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/groups")
-@Tag(name = "GROUPS", description = "GroupController")
-public class GroupController {
-
-    @Autowired
-    private GroupService groupService;
+@RequestMapping("/api/v1/hotels")
+@Tag(name = "HOTELS", description = "HotelController")
+public class HotelController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GroupResponseDto> createGroup(@RequestBody GroupRequestDto groupReqDto){
+    public ResponseEntity<HotelResponseDto> createGroup(@RequestBody HotelRequestDto dto){
         return ResponseEntity.ok(null);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<GroupResponseDto>> getAllGroups(){
+    public ResponseEntity<List<HotelResponseDto>> getAllGroups(){
         return ResponseEntity.ok(null);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GroupResponseDto> getGroupById(@PathVariable Integer id){
+    public ResponseEntity<HotelResponseDto> getGroupById(@PathVariable Integer id){
         return ResponseEntity.ok(null);
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GroupResponseDto> deleteGroupById(@PathVariable Integer id){
+    public ResponseEntity<HotelResponseDto> deleteGroupById(@PathVariable Integer id){
         return ResponseEntity.ok(null);
     }
 
     @PutMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GroupResponseDto> modifyGroupById(@RequestBody GroupRequestDto grpReqDto, @PathVariable Integer id){
+    public ResponseEntity<HotelResponseDto> modifyGroupById(@RequestBody HotelRequestDto dto,
+                                                            @PathVariable Integer id){
         return ResponseEntity.ok(null);
     }
 }
