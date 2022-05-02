@@ -42,8 +42,7 @@ public class GroupHelper {
     }
 
     public GroupResponseDto findById(Integer id) {
-        Group savedGroupRepo = groupRepository.findById(id).orElseThrow(RuntimeException::new);
-        return getGroupResponseDto(savedGroupRepo);
+        return getGroupResponseDto(groupRepository.findById(id).orElseThrow(RuntimeException::new));
     }
 
     private GroupResponseDto getGroupResponseDto(Group savedGroupRepo) {
@@ -64,7 +63,14 @@ public class GroupHelper {
     }
 
     public GroupResponseDto modifyGroup(GroupRequestDto requestDto) {
-        //TODO: Modify
-        return null;
+        GroupResponseDto existingGroup = findById(requestDto.getGroup().getId());
+        existingGroup.setGroup(requestDto.getGroup());
+
+        Group group = new Group();
+        group.setStatus(existingGroup.getGroup().getStatus());
+        group.setName(existingGroup.getGroup().getName());
+        group.setAddress(CommonCode.getAddress(existingGroup.getGroup().getAddress()));
+
+        return getGroupResponseDto(groupRepository.save(group));
     }
 }
