@@ -1,6 +1,8 @@
 package com.hotel.entites;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,7 +11,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "A_HOTELS")
-@Data
+@Setter
+@Getter
+@NoArgsConstructor
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,6 +22,8 @@ public class Hotel {
     private String name;
     private int status;
     private int noOfFloors;
+
+    @Temporal(TemporalType.DATE)
     private Date openDate;
 
     @ManyToOne
