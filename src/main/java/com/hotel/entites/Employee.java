@@ -1,5 +1,8 @@
 package com.hotel.entites;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -36,4 +39,10 @@ public class Employee {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "emp_cur_add_id", referencedColumnName = "id")
     private Address curAddress;
+
+    @CreationTimestamp
+    private Date createTs;
+
+    @UpdateTimestamp
+    private Date updateTs;
 }

@@ -1,14 +1,20 @@
 package com.hotel.dto.admin;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.hotel.dto.BasicAdminRequest;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 /**
  * Group API Request
  */
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+@JsonPropertyOrder(
+        value = {"group"}
+)
 public class GroupRequestDto extends BasicAdminRequest {
     private GroupObjectDto group;
 }
