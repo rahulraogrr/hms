@@ -32,6 +32,7 @@ public class HotelHelper implements CrudServiceHelperGeneric<HotelRequestDto, Ho
                 .noOfFloors(hotelRequestDto.getHotel().getNoOfFloors())
                 .openDate(hotelRequestDto.getHotel().getOpenDate())
                 .name(hotelRequestDto.getHotel().getName())
+                .status(hotelRequestDto.getHotel().getStatus())
                 .group(groupRepository.getById(hotelRequestDto.getHotel().getGroupId()))
                 .build()));
     }
@@ -49,6 +50,8 @@ public class HotelHelper implements CrudServiceHelperGeneric<HotelRequestDto, Ho
                         .name(hotel.getName())
                         .noOfFloors(hotel.getNoOfFloors())
                         .openDate(hotel.getOpenDate())
+                        .status(hotel.getStatus())
+                        .groupId(hotel.getGroup().getId())
                         .build())
                 .build();
     }
@@ -65,7 +68,7 @@ public class HotelHelper implements CrudServiceHelperGeneric<HotelRequestDto, Ho
     }
 
     @Override
-    public HotelResponseDto modify(Integer id, HotelRequestDto hotelRequestDto) {
+    public HotelResponseDto modify(Integer id, HotelRequestDto requestDto) {
         return null;
     }
 }
