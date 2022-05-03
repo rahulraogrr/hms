@@ -1,4 +1,4 @@
-package com.hotel.services.helpers;
+package com.hotel.services.helpers.admin;
 
 import com.hotel.dto.admin.GroupObjectDto;
 import com.hotel.dto.admin.GroupRequestDto;

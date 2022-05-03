@@ -1,4 +1,4 @@
-package com.hotel.services.validators;
+package com.hotel.services.validators.admin;
 
 import com.hotel.dto.admin.GroupRequestDto;
 import org.springframework.stereotype.Component;

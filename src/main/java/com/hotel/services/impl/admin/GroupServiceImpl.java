@@ -1,10 +1,10 @@
-package com.hotel.services.impl;
+package com.hotel.services.impl.admin;
 
 import com.hotel.dto.admin.GroupRequestDto;
 import com.hotel.dto.admin.GroupResponseDto;
-import com.hotel.services.GroupService;
-import com.hotel.services.helpers.GroupHelper;
-import com.hotel.services.validators.GroupValidator;
+import com.hotel.services.admin.GroupService;
+import com.hotel.services.helpers.admin.GroupHelper;
+import com.hotel.services.validators.admin.GroupValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

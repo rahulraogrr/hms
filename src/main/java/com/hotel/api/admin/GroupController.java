@@ -2,7 +2,7 @@ package com.hotel.api.admin;
 
 import com.hotel.dto.admin.GroupRequestDto;
 import com.hotel.dto.admin.GroupResponseDto;
-import com.hotel.services.GroupService;
+import com.hotel.services.admin.GroupService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
