@@ -1,14 +1,18 @@
 package com.hotel.dto.admin;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.hotel.dto.BasicAdminResponse;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 /**
  * A Group Response
  */
-@Data
 @EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonPropertyOrder(value = {"group"})
 public class GroupResponseDto extends BasicAdminResponse {
     private GroupObjectDto group;
 }

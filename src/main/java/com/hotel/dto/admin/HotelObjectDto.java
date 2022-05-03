@@ -3,12 +3,14 @@ package com.hotel.dto.admin;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.hotel.dto.portal.AddressDto;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
 @Data
+@Builder
 @EqualsAndHashCode(callSuper = false)
 @JsonPropertyOrder(
         value = {

@@ -1,10 +1,11 @@
 package com.hotel.entites;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +15,9 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Hotel {
+@Builder
+@AllArgsConstructor
+public class Hotel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -39,4 +42,10 @@ public class Hotel {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hotel", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Department> departments = new HashSet<>();
+
+    @CreationTimestamp
+    private Date createTs;
+
+    @UpdateTimestamp
+    private Date updateTs;
 }

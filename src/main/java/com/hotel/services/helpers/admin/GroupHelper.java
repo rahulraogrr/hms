@@ -1,4 +1,4 @@
-package com.hotel.services.helpers;
+package com.hotel.services.helpers.admin;
 
 import com.hotel.dto.admin.GroupObjectDto;
 import com.hotel.dto.admin.GroupRequestDto;
@@ -7,7 +7,6 @@ import com.hotel.entites.Group;
 import com.hotel.repositories.GroupRepository;
 import com.hotel.util.CommonCode;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -17,8 +16,11 @@ import java.util.List;
 @Slf4j
 public class GroupHelper {
 
-    @Autowired
-    private GroupRepository groupRepository;
+    private final GroupRepository groupRepository;
+
+    public GroupHelper(GroupRepository groupRepository) {
+        this.groupRepository = groupRepository;
+    }
 
     public GroupResponseDto createGroup(GroupRequestDto requestDto) {
         log.info("Request {}",requestDto);

@@ -3,12 +3,15 @@ package com.hotel.dto.admin;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.hotel.dto.portal.AddressDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.*;
 
-@Data
 @JsonPropertyOrder(value = {
         "name", "status", "address"
 })
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class GroupObjectDto {
 
     @Schema(
@@ -40,7 +43,6 @@ public class GroupObjectDto {
     @Schema(
             title = "address",
             name = "address",
-            description = "Group Head Office Address",
             required = true
     )
     private AddressDto address;

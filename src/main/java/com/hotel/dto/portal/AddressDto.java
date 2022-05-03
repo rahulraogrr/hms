@@ -2,19 +2,22 @@ package com.hotel.dto.portal;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 /**
  * An Address DTO
  */
-@Data
 @EqualsAndHashCode(callSuper = false)
 @JsonPropertyOrder(
         value = {
                 "id", "type", "address1", "address2", "city", "state", "country", "pinCode"
         }
 )
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class AddressDto {
     @Schema(
             title = "id",

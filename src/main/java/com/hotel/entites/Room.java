@@ -1,13 +1,19 @@
 package com.hotel.entites;
 
-import lombok.Data;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "A_ROOMS")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Room implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,4 +26,10 @@ public class Room implements Serializable {
     @ManyToOne
     @JoinColumn(name = "room_floor_id", referencedColumnName = "id")
     private Floor floor;
+
+    @CreationTimestamp
+    private Date createTs;
+
+    @UpdateTimestamp
+    private Date updateTs;
 }
