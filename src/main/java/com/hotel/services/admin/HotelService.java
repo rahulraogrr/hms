@@ -1,10 +1,12 @@
 package com.hotel.services.admin;
 
-import com.hotel.entites.Hotel;
+import com.hotel.dto.admin.HotelRequestDto;
+import com.hotel.dto.admin.HotelResponseDto;
+import com.hotel.services.CrudService;
 
 /**
- * A Hotel
+ * Hotel Service
  */
-public interface HotelService{
+public interface HotelService extends CrudService<HotelRequestDto, HotelResponseDto, Integer> {
 
 }
