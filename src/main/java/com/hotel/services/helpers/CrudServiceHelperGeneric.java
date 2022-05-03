@@ -9,7 +9,7 @@ import java.util.List;
  * @param <R> Response
  * @param <I> ID
  */
-public interface ServiceHelperGeneric<T,R,I> {
+public interface CrudServiceHelperGeneric<T,R,I> {
     R create(T t);
     List<R> findAll();
     R findById(I id);

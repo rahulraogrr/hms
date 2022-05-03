@@ -42,6 +42,6 @@ public class GroupController {
 
     @PutMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GroupResponseDto> modifyGroupById(@RequestBody GroupRequestDto grpReqDto, @PathVariable Integer id){
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(groupService.modify(id,grpReqDto));
     }
 }

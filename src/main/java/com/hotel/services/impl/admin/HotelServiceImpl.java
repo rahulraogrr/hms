@@ -26,8 +26,7 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public HotelResponseDto create(HotelRequestDto hotelRequestDto) {
         hotelValidator.validateRequest(hotelRequestDto);
-        hotelHelper.create(hotelRequestDto);
-        return null;
+        return hotelHelper.create(hotelRequestDto);
     }
 
     @Override
@@ -48,7 +47,6 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public HotelResponseDto modify(Integer id, HotelRequestDto hotelRequestDto) {
         hotelValidator.validateRequest(hotelRequestDto);
-        hotelHelper.modify(id,hotelRequestDto);
-        return null;
+        return hotelHelper.modify(id,hotelRequestDto);
     }
 }

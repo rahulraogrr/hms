@@ -1,8 +1,6 @@
 package com.hotel.entites;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -17,6 +15,8 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Hotel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
