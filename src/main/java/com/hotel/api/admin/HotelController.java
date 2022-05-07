@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Hotel Controller
+ * @author rgonda
+ */
 @RestController
 @RequestMapping("/api/v1/hotels")
 @Tag(name = "hotels", description = "HotelController")

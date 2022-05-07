@@ -20,7 +20,7 @@ public class OpenApiConfig {
                         new Info()
                                 .title("HMS API")
                                 .version("1.0")
-                                .description("Hotel Management System")
+                                .description("Hotel Management System API")
                                 .termsOfService("https://github.com/rahulraogrr/hms")
                                 .contact(
                                         new Contact()
