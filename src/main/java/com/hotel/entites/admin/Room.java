@@ -12,6 +12,7 @@ import java.util.Date;
 @Table(name = "A_ROOMS")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Room implements Serializable {
