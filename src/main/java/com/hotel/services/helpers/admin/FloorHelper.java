@@ -62,6 +62,7 @@ public class FloorHelper implements CrudServiceHelperGeneric<FloorRequestDto, Fl
         return FloorResponseDto.builder()
                 .floor(
                         FloorObjectDto.builder()
+                                .id(floor.getId())
                                 .status(floor.getStatus())
                                 .noOfRooms(floor.getNoOfRooms())
                                 .hotelId(floor.getHotel().getId())
