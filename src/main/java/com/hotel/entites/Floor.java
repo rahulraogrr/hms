@@ -9,10 +9,16 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * A Floor
+ *
+ * @author rgonda
+ */
 @Entity
 @Table(name = "A_FLOORS")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Floor {
@@ -21,7 +27,7 @@ public class Floor {
     @SequenceGenerator(name = "global_seq", sequenceName = "GLOBAL_SEQUENCE")
     private int id;
 
-    private String noOfRooms;
+    private int noOfRooms;
     private int status;
 
     @ManyToOne
