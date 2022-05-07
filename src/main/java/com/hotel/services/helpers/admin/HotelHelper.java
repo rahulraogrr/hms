@@ -27,7 +27,7 @@ public class HotelHelper implements CrudServiceHelperGeneric<HotelRequestDto, Ho
     @Override
     public HotelResponseDto create(HotelRequestDto hotelRequestDto) {
 
-        return getHotelBuild(hotelRepository.save(Hotel.builder()
+        return getHotelResponse(hotelRepository.save(Hotel.builder()
                 .address(CommonCode.getAddress(hotelRequestDto.getHotel().getAddress()))
                 .noOfFloors(hotelRequestDto.getHotel().getNoOfFloors())
                 .openDate(hotelRequestDto.getHotel().getOpenDate())
@@ -39,10 +39,10 @@ public class HotelHelper implements CrudServiceHelperGeneric<HotelRequestDto, Ho
 
     @Override
     public List<HotelResponseDto> findAll() {
-        return hotelRepository.findAll().stream().map(this::getHotelBuild).collect(Collectors.toList());
+        return hotelRepository.findAll().stream().map(HotelHelper::getHotelResponse).collect(Collectors.toList());
     }
 
-    private HotelResponseDto getHotelBuild(Hotel hotel) {
+    private static HotelResponseDto getHotelResponse(Hotel hotel) {
         return HotelResponseDto.builder()
                 .hotel(HotelObjectDto.builder()
                         .address(CommonCode.getAddressDto(hotel.getAddress()))
@@ -58,7 +58,7 @@ public class HotelHelper implements CrudServiceHelperGeneric<HotelRequestDto, Ho
 
     @Override
     public HotelResponseDto findById(Integer id) {
-        return getHotelBuild(hotelRepository.findById(id).get());
+        return getHotelResponse(hotelRepository.findById(id).get());
     }
 
     @Override

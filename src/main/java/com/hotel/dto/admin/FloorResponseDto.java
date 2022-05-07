@@ -11,9 +11,10 @@ import lombok.*;
  */
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonPropertyOrder(value = {"floor"})
 public class FloorResponseDto extends BasicAdminResponse {
-    private FloorRequestDto floor;
+    private FloorObjectDto floor;
 }

@@ -18,6 +18,7 @@ import java.util.Set;
 @Table(name = "A_FLOORS")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Floor {

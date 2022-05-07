@@ -18,5 +18,5 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonPropertyOrder(value = {"floor"})
 public class FloorRequestDto extends BasicAdminRequest {
-    private FloorRequestDto floor;
+    private FloorObjectDto floor;
 }
