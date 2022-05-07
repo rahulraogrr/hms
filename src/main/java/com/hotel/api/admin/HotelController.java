@@ -1,7 +1,7 @@
 package com.hotel.api.admin;
 
-import com.hotel.dto.admin.HotelRequestDto;
-import com.hotel.dto.admin.HotelResponseDto;
+import com.hotel.dto.admin.hotel.HotelRequestDto;
+import com.hotel.dto.admin.hotel.HotelResponseDto;
 import com.hotel.services.admin.HotelService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Hotel Controller
+ * @author rgonda
+ */
 @RestController
 @RequestMapping("/api/v1/hotels")
-@Tag(name = "HOTELS", description = "HotelController")
+@Tag(name = "hotels", description = "HotelController")
 public class HotelController {
 
     private final HotelService hotelService;

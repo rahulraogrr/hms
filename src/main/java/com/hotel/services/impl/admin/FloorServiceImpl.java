@@ -1,7 +1,7 @@
 package com.hotel.services.impl.admin;
 
-import com.hotel.dto.admin.FloorRequestDto;
-import com.hotel.dto.admin.FloorResponseDto;
+import com.hotel.dto.admin.floor.FloorRequestDto;
+import com.hotel.dto.admin.floor.FloorResponseDto;
 import com.hotel.services.admin.FloorService;
 import com.hotel.services.helpers.admin.FloorHelper;
 import com.hotel.services.validators.admin.FloorValidator;

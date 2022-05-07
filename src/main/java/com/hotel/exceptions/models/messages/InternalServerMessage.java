@@ -3,6 +3,10 @@ package com.hotel.exceptions.models.messages;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
+/**
+ * InternalServerMessage
+ * @author rgonda
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

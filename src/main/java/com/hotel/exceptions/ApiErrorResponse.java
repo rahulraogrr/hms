@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 /**
  * API Error Response
+ * @author rgonda
  */
 @Getter
 @Setter

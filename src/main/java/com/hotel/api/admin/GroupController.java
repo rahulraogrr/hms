@@ -1,23 +1,27 @@
 package com.hotel.api.admin;
 
-import com.hotel.dto.admin.GroupRequestDto;
-import com.hotel.dto.admin.GroupResponseDto;
+import com.hotel.dto.admin.group.GroupRequestDto;
+import com.hotel.dto.admin.group.GroupResponseDto;
 import com.hotel.services.admin.GroupService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Group Controller
+ * @author rgonda
+ */
 @RestController
 @RequestMapping("/api/v1/groups")
-@Tag(name = "GROUPS", description = "GroupController")
+@Tag(name = "groups", description = "GroupController")
 public class GroupController {
-
-    @Autowired
-    private GroupService groupService;
+    private final GroupService groupService;
+    GroupController(GroupService groupService){
+        this.groupService=groupService;
+    }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GroupResponseDto> createGroup(@RequestBody GroupRequestDto dto){

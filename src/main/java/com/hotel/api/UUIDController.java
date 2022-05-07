@@ -2,6 +2,7 @@ package com.hotel.api;
 
 import com.hotel.entites.UUIDTest;
 import com.hotel.repositories.UUIDRepo;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/v1/uuid")
+@Tag(name = "uuid", description = "UUIDController")
 public class UUIDController {
 
     @Autowired

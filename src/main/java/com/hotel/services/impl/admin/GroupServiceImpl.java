@@ -1,7 +1,7 @@
 package com.hotel.services.impl.admin;
 
-import com.hotel.dto.admin.GroupRequestDto;
-import com.hotel.dto.admin.GroupResponseDto;
+import com.hotel.dto.admin.group.GroupRequestDto;
+import com.hotel.dto.admin.group.GroupResponseDto;
 import com.hotel.services.admin.GroupService;
 import com.hotel.services.helpers.admin.GroupHelper;
 import com.hotel.services.validators.admin.GroupValidator;

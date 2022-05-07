@@ -1,10 +1,10 @@
 package com.hotel.services.helpers.admin;
 
-import com.hotel.dto.admin.GroupObjectDto;
-import com.hotel.dto.admin.GroupRequestDto;
-import com.hotel.dto.admin.GroupResponseDto;
-import com.hotel.entites.Group;
-import com.hotel.repositories.GroupRepository;
+import com.hotel.dto.admin.group.GroupObjectDto;
+import com.hotel.dto.admin.group.GroupRequestDto;
+import com.hotel.dto.admin.group.GroupResponseDto;
+import com.hotel.entites.admin.Group;
+import com.hotel.repositories.admin.GroupRepository;
 import com.hotel.util.CommonCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

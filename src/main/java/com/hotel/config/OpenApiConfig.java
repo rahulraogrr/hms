@@ -6,6 +6,10 @@ import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Open API Configuration
+ * @author rgonda
+ */
 @Configuration
 public class OpenApiConfig {
 
@@ -16,7 +20,7 @@ public class OpenApiConfig {
                         new Info()
                                 .title("HMS API")
                                 .version("1.0")
-                                .description("Hotel Management System")
+                                .description("Hotel Management System API")
                                 .termsOfService("https://github.com/rahulraogrr/hms")
                                 .contact(
                                         new Contact()

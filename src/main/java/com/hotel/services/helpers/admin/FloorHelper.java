@@ -1,11 +1,11 @@
 package com.hotel.services.helpers.admin;
 
-import com.hotel.dto.admin.FloorObjectDto;
-import com.hotel.dto.admin.FloorRequestDto;
-import com.hotel.dto.admin.FloorResponseDto;
-import com.hotel.entites.Floor;
-import com.hotel.repositories.FloorRepository;
-import com.hotel.repositories.HotelRepository;
+import com.hotel.dto.admin.floor.FloorObjectDto;
+import com.hotel.dto.admin.floor.FloorRequestDto;
+import com.hotel.dto.admin.floor.FloorResponseDto;
+import com.hotel.entites.admin.Floor;
+import com.hotel.repositories.admin.FloorRepository;
+import com.hotel.repositories.admin.HotelRepository;
 import com.hotel.services.helpers.CrudServiceHelperGeneric;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
