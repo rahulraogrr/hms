@@ -1,7 +1,7 @@
-package com.hotel.dto.admin;
+package com.hotel.dto.admin.floor;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.hotel.dto.BasicAdminResponse;
+import com.hotel.dto.admin.BasicAdminResponse;
 import lombok.*;
 
 /**

@@ -1,5 +1,7 @@
 package com.hotel.services.validators.admin;
 
+import com.hotel.dto.admin.department.DepartmentRequestDto;
+import com.hotel.services.validators.ServiceValidatorGeneric;
 import org.springframework.stereotype.Component;
 
 /**
@@ -7,6 +9,10 @@ import org.springframework.stereotype.Component;
  * @author rgonda
  */
 @Component
-public class DepartmentValidator {
+public class DepartmentValidator implements ServiceValidatorGeneric<DepartmentRequestDto> {
 
+    @Override
+    public void validateRequest(DepartmentRequestDto departmentRequestDto) {
+
+    }
 }

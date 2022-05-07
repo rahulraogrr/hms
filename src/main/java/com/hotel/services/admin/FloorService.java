@@ -1,7 +1,7 @@
 package com.hotel.services.admin;
 
-import com.hotel.dto.admin.FloorRequestDto;
-import com.hotel.dto.admin.FloorResponseDto;
+import com.hotel.dto.admin.floor.FloorRequestDto;
+import com.hotel.dto.admin.floor.FloorResponseDto;
 import com.hotel.services.CrudService;
 
 /**

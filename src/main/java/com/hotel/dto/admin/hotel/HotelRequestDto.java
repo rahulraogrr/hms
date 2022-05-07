@@ -1,6 +1,6 @@
-package com.hotel.dto.admin;
+package com.hotel.dto.admin.hotel;
 
-import com.hotel.dto.BasicAdminRequest;
+import com.hotel.dto.admin.BasicAdminRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

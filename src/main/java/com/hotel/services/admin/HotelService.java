@@ -1,7 +1,7 @@
 package com.hotel.services.admin;
 
-import com.hotel.dto.admin.HotelRequestDto;
-import com.hotel.dto.admin.HotelResponseDto;
+import com.hotel.dto.admin.hotel.HotelRequestDto;
+import com.hotel.dto.admin.hotel.HotelResponseDto;
 import com.hotel.services.CrudService;
 
 /**

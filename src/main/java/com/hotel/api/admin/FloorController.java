@@ -1,7 +1,7 @@
 package com.hotel.api.admin;
 
-import com.hotel.dto.admin.FloorRequestDto;
-import com.hotel.dto.admin.FloorResponseDto;
+import com.hotel.dto.admin.floor.FloorRequestDto;
+import com.hotel.dto.admin.floor.FloorResponseDto;
 import com.hotel.services.admin.FloorService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/floors")
-@Tag(name = "FLOORS", description = "FloorController")
+@Tag(name = "floors", description = "FloorController")
 public class FloorController {
 
     private final FloorService floorService;

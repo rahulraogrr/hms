@@ -39,6 +39,7 @@ public class Employee implements Serializable {
     private int designation;
     private int status;
     private boolean currAddSameAsPermAdd;
+    private int grade;
 
     @ManyToOne
     @JoinColumn(name = "emp_dept_id", referencedColumnName = "id")

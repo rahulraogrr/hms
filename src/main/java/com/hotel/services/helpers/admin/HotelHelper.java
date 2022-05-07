@@ -1,8 +1,8 @@
 package com.hotel.services.helpers.admin;
 
-import com.hotel.dto.admin.HotelObjectDto;
-import com.hotel.dto.admin.HotelRequestDto;
-import com.hotel.dto.admin.HotelResponseDto;
+import com.hotel.dto.admin.hotel.HotelObjectDto;
+import com.hotel.dto.admin.hotel.HotelRequestDto;
+import com.hotel.dto.admin.hotel.HotelResponseDto;
 import com.hotel.entites.admin.Hotel;
 import com.hotel.repositories.GroupRepository;
 import com.hotel.repositories.HotelRepository;

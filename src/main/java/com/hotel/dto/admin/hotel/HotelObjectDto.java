@@ -1,4 +1,4 @@
-package com.hotel.dto.admin;
+package com.hotel.dto.admin.hotel;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.hotel.dto.portal.AddressDto;

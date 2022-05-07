@@ -1,6 +1,6 @@
 package com.hotel.services.validators.admin;
 
-import com.hotel.dto.admin.HotelRequestDto;
+import com.hotel.dto.admin.hotel.HotelRequestDto;
 import com.hotel.repositories.GroupRepository;
 import com.hotel.services.validators.ServiceValidatorGeneric;
 import org.springframework.stereotype.Component;

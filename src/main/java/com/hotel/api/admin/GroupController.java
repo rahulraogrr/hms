@@ -1,7 +1,7 @@
 package com.hotel.api.admin;
 
-import com.hotel.dto.admin.GroupRequestDto;
-import com.hotel.dto.admin.GroupResponseDto;
+import com.hotel.dto.admin.group.GroupRequestDto;
+import com.hotel.dto.admin.group.GroupResponseDto;
 import com.hotel.services.admin.GroupService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/groups")
-@Tag(name = "GROUPS", description = "GroupController")
+@Tag(name = "groups", description = "GroupController")
 public class GroupController {
 
     @Autowired

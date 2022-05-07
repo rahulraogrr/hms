@@ -1,8 +1,8 @@
 package com.hotel.services.helpers.admin;
 
-import com.hotel.dto.admin.FloorObjectDto;
-import com.hotel.dto.admin.FloorRequestDto;
-import com.hotel.dto.admin.FloorResponseDto;
+import com.hotel.dto.admin.floor.FloorObjectDto;
+import com.hotel.dto.admin.floor.FloorRequestDto;
+import com.hotel.dto.admin.floor.FloorResponseDto;
 import com.hotel.entites.admin.Floor;
 import com.hotel.repositories.FloorRepository;
 import com.hotel.repositories.HotelRepository;
