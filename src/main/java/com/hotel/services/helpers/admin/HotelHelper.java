@@ -3,7 +3,7 @@ package com.hotel.services.helpers.admin;
 import com.hotel.dto.admin.HotelObjectDto;
 import com.hotel.dto.admin.HotelRequestDto;
 import com.hotel.dto.admin.HotelResponseDto;
-import com.hotel.entites.Hotel;
+import com.hotel.entites.admin.Hotel;
 import com.hotel.repositories.GroupRepository;
 import com.hotel.repositories.HotelRepository;
 import com.hotel.services.helpers.CrudServiceHelperGeneric;

@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+/**
+ * UUID Repository
+ * @author rgonda
+ */
 @Repository
 public interface UUIDRepo extends JpaRepository<UUIDTest, UUID> {
 

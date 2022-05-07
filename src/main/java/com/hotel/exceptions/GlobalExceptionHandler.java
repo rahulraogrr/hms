@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Global Exception Handler
+ * @author rgonda
  */
 @Slf4j
 @Order(Ordered.HIGHEST_PRECEDENCE)

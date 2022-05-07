@@ -1,4 +1,4 @@
-package com.hotel.entites;
+package com.hotel.entites.admin;
 
 import com.hotel.constants.Gender;
 import org.hibernate.annotations.CreationTimestamp;

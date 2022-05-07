@@ -1,4 +1,4 @@
-package com.hotel.entites;
+package com.hotel.entites.admin;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,33 +10,29 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * A Floor
- *
- * @author rgonda
- */
 @Entity
-@Table(name = "A_FLOORS")
+@Table(name = "A_DEPARTMENTS")
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class Floor implements Serializable {
+@AllArgsConstructor
+@Builder
+public class Department implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     @SequenceGenerator(name = "global_seq", sequenceName = "GLOBAL_SEQUENCE")
     private int id;
 
-    private int noOfRooms;
+    private int type;
+    private String name;
     private int status;
 
     @ManyToOne
-    @JoinColumn(name = "floor_hotel_id", referencedColumnName = "id")
+    @JoinColumn(name = "dept_hotel_id", referencedColumnName = "id")
     private Hotel hotel;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "floor", fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Room> rooms = new HashSet<>();
+    @OneToMany(mappedBy = "department",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Employee> employees = new HashSet<>();
 
     @CreationTimestamp
     private Date createTs;
