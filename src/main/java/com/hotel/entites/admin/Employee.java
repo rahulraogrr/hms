@@ -1,6 +1,7 @@
 package com.hotel.entites.admin;
 
 import com.hotel.constants.Gender;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,6 +11,11 @@ import java.util.Date;
 
 @Entity
 @Table(name = "A_EMPLOYEES")
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "emp_generator")
