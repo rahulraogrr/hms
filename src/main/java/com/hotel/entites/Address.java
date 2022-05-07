@@ -17,7 +17,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class Address implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_generator")
+    @SequenceGenerator(name = "address_generator", sequenceName = "ADDRESS_SEQUENCE")
     private long id;
 
     private int type;

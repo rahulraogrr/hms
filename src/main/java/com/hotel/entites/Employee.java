@@ -1,5 +1,6 @@
 package com.hotel.entites;
 
+import com.hotel.constants.Gender;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,23 +11,33 @@ import java.util.Date;
 @Table(name = "A_EMPLOYEES")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "emp_generator")
+    @SequenceGenerator(name = "emp_generator", sequenceName = "EMP_SEQUENCE")
     private long id;
 
     private String firstName;
     private String middleName;
     private String lastName;
+
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
+
     private int eduType;
+
+    @Temporal(TemporalType.DATE)
     private Date hireDate;
+
+    @Temporal(TemporalType.DATE)
     private Date lastDate;
+
     private int idType;
     private String idNo;
     private String mobile;
-    private int gender;
+    private Gender gender;
     private long reportsTo;
     private int designation;
     private int status;
+    private boolean currAddSameAsPermAdd;
 
     @ManyToOne
     @JoinColumn(name = "emp_dept_id", referencedColumnName = "id")

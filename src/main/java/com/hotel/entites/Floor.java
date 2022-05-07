@@ -17,7 +17,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class Floor {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @SequenceGenerator(name = "global_seq", sequenceName = "GLOBAL_SEQUENCE")
     private int id;
 
     private String noOfRooms;

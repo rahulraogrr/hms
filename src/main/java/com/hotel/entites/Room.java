@@ -16,7 +16,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class Room implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @SequenceGenerator(name = "global_seq", sequenceName = "GLOBAL_SEQUENCE")
     private int id;
 
     private int type;

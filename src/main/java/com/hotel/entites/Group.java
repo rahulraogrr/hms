@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GeneratorType;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -20,7 +21,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class Group implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @SequenceGenerator(name = "global_seq", sequenceName = "GLOBAL_SEQUENCE")
     private int id;
 
     @Column(name = "name", length = 20)

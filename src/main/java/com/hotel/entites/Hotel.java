@@ -19,7 +19,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class Hotel implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @SequenceGenerator(name = "global_seq", sequenceName = "GLOBAL_SEQUENCE")
     private int id;
 
     private String name;
