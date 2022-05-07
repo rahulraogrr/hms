@@ -8,6 +8,8 @@ import java.util.List;
  * @param <T> Request
  * @param <R> Response
  * @param <I> ID
+ *
+ * @author rgonda
  */
 public interface CrudServiceHelperGeneric<T,R,I> {
     R create(T t);
