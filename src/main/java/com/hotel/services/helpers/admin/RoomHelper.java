@@ -76,7 +76,7 @@ public class RoomHelper implements CrudServiceHelperGeneric<RoomRequestDto, Room
                 .type(roomRequestDto.getRoom().getType())
                 .area(roomRequestDto.getRoom().getArea())
                 .status(roomRequestDto.getRoom().getStatus())
-                .floor(floorRepository.getById(roomRequestDto.getRoom().getRoomFloorId()))
+                .floor(floorRepository.findById(roomRequestDto.getRoom().getRoomFloorId()).get())
                 .build();
     }
 }

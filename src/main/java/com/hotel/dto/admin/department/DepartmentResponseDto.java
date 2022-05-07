@@ -2,10 +2,7 @@ package com.hotel.dto.admin.department;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.hotel.dto.admin.BasicAdminResponse;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Department Response Dto
@@ -13,6 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonPropertyOrder(value = {"department"})
