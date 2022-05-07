@@ -1,4 +1,4 @@
-package com.hotel.repositories;
+package com.hotel.repositories.admin;
 
 import com.hotel.entites.admin.Group;
 import org.springframework.data.jpa.repository.JpaRepository;

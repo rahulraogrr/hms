@@ -4,7 +4,7 @@ import com.hotel.dto.admin.group.GroupObjectDto;
 import com.hotel.dto.admin.group.GroupRequestDto;
 import com.hotel.dto.admin.group.GroupResponseDto;
 import com.hotel.entites.admin.Group;
-import com.hotel.repositories.GroupRepository;
+import com.hotel.repositories.admin.GroupRepository;
 import com.hotel.util.CommonCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
