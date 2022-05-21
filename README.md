@@ -1,6 +1,6 @@
-# Hotel Management System
+# Hotel Management System [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2b5cbf01886a4cbab07cdb9620ff31af)](https://www.codacy.com/gh/rahulraogrr/hms/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rahulraogrr/hms&amp;utm_campaign=Badge_Grade)
 
-### Technology Stack
+## Technology Stack
 
 | Sr No | Type                 | Technology | Version |
 |-------|----------------------|------------|---------|
