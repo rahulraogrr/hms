@@ -16,6 +16,7 @@ Hotel Management API is built for groups who have list or a single hotel. It has
 4. Room Master       : Rooms must be added for a created floor.
 5. Department Master : Departments must be created for a specific hotel. 
 6. Employee Master   : Employees will be working in various departments in a hotel in a particular department.
+7. Inventory Master  : Details of products available in a hotel.
 
 **HMS Portal**: In this module hotel employees can do the following activities mentioned below.
 1. Login/Logout to the portal
