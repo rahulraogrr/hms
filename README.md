@@ -24,13 +24,5 @@ Hotel Management API is built for groups who have list or a single hotel. It has
 3. Manage Booking
 4. Manage different services available for a room once it is booked by the customer. Ex: Laundry Service
 
-## Technology Stack
-
-| Sr No | Type                 | Technology | Version |
-|-------|----------------------|------------|---------|
-| 1     | Programming Language | Java       | 11      |
-| 2     | Framework            | SpringBoot | 2.6.7   |
-| 3     | Database             | Postgres   | 14.2    |
-
 ## ER Diagram
 ![image description](src/main/resources/static/images/er_diagram.png)
