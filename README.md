@@ -10,7 +10,7 @@ Hotel Management System API is built for groups who have chain of hotels. This h
 1. Admin Module
 2. HMS Portal
 
-<u>Admin Module</u>: In this module hotels can define a group under which hotels can created. Admin users can do the following activites mentioned below
+<u><b>Admin Module</b></u>: In this module hotels can define a group under which hotels can created. Admin users can do the following activites mentioned below
 1. Group Master : Admin will create group under which hotels can be listed/added. Ex: Taj Group of hotels
 2. Hotel Master : Hotels will be added under group. Users can add n number of hotels under a group including the location.
 3. Floor Master : Floors must be added for a hotel.
@@ -18,7 +18,7 @@ Hotel Management System API is built for groups who have chain of hotels. This h
 5. Department Master : Departments must be created for a specific hotel
 6. Employee Master : Employees will be working in various departments in a hotel.
 
-<u>HMS Portal</u>: In this module hotel employees can maintain the incoming customer flow.
+<u><b>HMS Portal</b></u>: In this module hotel employees can maintain the incoming customer flow.
 
 ## Technology Stack
 
