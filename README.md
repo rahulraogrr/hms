@@ -2,6 +2,8 @@
 
 Follow me on Twitter ![Twitter Follow](https://img.shields.io/twitter/follow/rahulrao20?style=social)
 
+About application: https://rahulraogrr.github.io/hms/
+
 ## Description
 
 Hotel Management System API is built for groups who have chain of hotels. This has two modules as mentioned below
