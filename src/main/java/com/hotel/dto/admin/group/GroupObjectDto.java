@@ -12,6 +12,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class GroupObjectDto {
 
     @Schema(
