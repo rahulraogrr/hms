@@ -26,7 +26,3 @@ logging:
     sql: debug
     root: info
     web: debug
-
-##Server Configuration
-server:
-  port: 8999

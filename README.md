@@ -1,7 +1,5 @@
 # Hotel Management API [![CircleCI](https://circleci.com/gh/rahulraogrr/hms/tree/main.svg?style=svg)](https://circleci.com/gh/rahulraogrr/hms/tree/main) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2b5cbf01886a4cbab07cdb9620ff31af)](https://www.codacy.com/gh/rahulraogrr/hms/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rahulraogrr/hms&amp;utm_campaign=Badge_Grade) ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/rahulraogrr/hms) 
 
-Follow me on Twitter ![Twitter Follow](https://img.shields.io/twitter/follow/rahulrao20?style=social)
-
 ## Description
 
 Hotel Management API is built for groups who have list or a single hotel. It has two modules as mentioned below
@@ -26,3 +24,6 @@ Hotel Management API is built for groups who have list or a single hotel. It has
 
 ## ER Diagram
 ![image description](src/main/resources/static/images/er_diagram.png)
+
+
+Follow me on Twitter ![Twitter Follow](https://img.shields.io/twitter/follow/rahulrao20?style=social)
