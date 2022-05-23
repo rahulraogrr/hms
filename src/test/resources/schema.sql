@@ -1,7 +1,7 @@
 --
 -- DROP TABLES if they already exists
 --
-DROP TABLE if EXISTS a_departments CASCADE
+DROP TABLE if EXISTS a_departments CASCADE;
 DROP TABLE if EXISTS a_employees CASCADE;
 DROP TABLE if EXISTS a_floors CASCADE;
 DROP TABLE if EXISTS a_groups CASCADE;
@@ -18,9 +18,9 @@ DROP sequence if EXISTS global_sequence;
 --
 -- CREATE SEQUENCES
 --
-CREATE sequence address_sequence start WITH 1 increment by 50
-CREATE sequence emp_sequence start WITH 1 increment by 50
-CREATE sequence global_sequence start WITH 1 increment by 50
+CREATE sequence address_sequence start WITH 1 increment by 50;
+CREATE sequence emp_sequence start WITH 1 increment by 50;
+CREATE sequence global_sequence start WITH 1 increment by 50;
 
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE u_address (
         create_ts timestamp,
         pin_code varchar(255),
         state varchar(255),
-        type integer NOT NULL,
+        "type" integer NOT NULL,
         update_ts timestamp,
         PRIMARY KEY (id)
 );
@@ -52,8 +52,8 @@ CREATE TABLE a_parent_companies (
         founded date,
         isin varchar(255),
         industry varchar(255),
-        name varchar(255),
-        type integer NOT NULL,
+        "name" varchar(255),
+        "type" integer NOT NULL,
         parent_address_id bigint,
         PRIMARY KEY (id)
 );
@@ -64,9 +64,9 @@ CREATE TABLE a_parent_companies (
 CREATE TABLE a_departments (
        id integer NOT NULL,
         create_ts timestamp,
-        name varchar(255),
+        "name" varchar(255),
         status integer NOT NULL,
-        type integer NOT NULL,
+        "type" integer NOT NULL,
         update_ts timestamp,
         dept_hotel_id integer,
         resort_hotel_id integer,
@@ -121,7 +121,7 @@ CREATE TABLE a_floors (
 CREATE TABLE a_groups (
        id integer NOT NULL,
         create_ts timestamp,
-        name varchar(20),
+        "name" varchar(20),
         status integer NOT NULL,
         update_ts timestamp,
         group_address_id bigint,
@@ -136,7 +136,7 @@ CREATE TABLE a_hotels (
        id integer NOT NULL,
         create_ts timestamp,
         founded date,
-        name varchar(255),
+        "name" varchar(255),
         no_of_floors integer NOT NULL,
         status integer NOT NULL,
         update_ts timestamp,
@@ -152,7 +152,7 @@ CREATE TABLE a_resorts (
        id integer NOT NULL,
         create_ts timestamp,
         founded date,
-        name varchar(255),
+        "name" varchar(255),
         status integer NOT NULL,
         update_ts timestamp,
         resort_address_id bigint,
@@ -168,7 +168,7 @@ CREATE TABLE a_rooms (
         area integer NOT NULL,
         create_ts timestamp,
         status integer NOT NULL,
-        type integer NOT NULL,
+        "type" integer NOT NULL,
         update_ts timestamp,
         room_floor_id integer,
         PRIMARY KEY (id)
@@ -179,9 +179,9 @@ CREATE TABLE a_rooms (
 --
 CREATE TABLE uuid_test (
        uuid binary NOT NULL,
-        name varchar(255),
+        "name" varchar(255),
         PRIMARY KEY (uuid)
-)
+);
 
 --
 -- CREATE FOREIGN KEYS
