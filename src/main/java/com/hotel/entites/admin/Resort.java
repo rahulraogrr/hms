@@ -11,32 +11,34 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "A_DEPARTMENTS")
-@Getter
+@Table(name = "A_RESORTS")
 @Setter
+@Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class Department implements Serializable {
+@AllArgsConstructor
+public class Resort implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     @SequenceGenerator(name = "global_seq", sequenceName = "GLOBAL_SEQUENCE")
     private int id;
 
-    private int type;
     private String name;
     private int status;
 
-    @ManyToOne
-    @JoinColumn(name = "dept_hotel_id", referencedColumnName = "id")
-    private Hotel hotel;
+    @Temporal(TemporalType.DATE)
+    private Date founded;
 
     @ManyToOne
-    @JoinColumn(name = "resort_hotel_id", referencedColumnName = "id")
-    private Resort resort;
+    @JoinColumn(name = "resort_group_id", referencedColumnName = "id")
+    private Group group;
 
-    @OneToMany(mappedBy = "department",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Employee> employees = new HashSet<>();
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "resort_address_id",referencedColumnName = "id")
+    private Address address;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "resort", fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Department> departments = new HashSet<>();
 
     @CreationTimestamp
     private Date createTs;

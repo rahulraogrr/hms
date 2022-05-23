@@ -28,7 +28,7 @@ public class Hotel implements Serializable {
     private int noOfFloors;
 
     @Temporal(TemporalType.DATE)
-    private Date openDate;
+    private Date founded;
 
     @ManyToOne
     @JoinColumn(name = "hotel_group_id", referencedColumnName = "id")
