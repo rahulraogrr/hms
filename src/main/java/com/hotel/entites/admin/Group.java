@@ -35,6 +35,10 @@ public class Group implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Hotel> hotels = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "group_parent_id", referencedColumnName = "id")
+    private Parent parent;
+
     @CreationTimestamp
     private Date createTs;
 

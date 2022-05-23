@@ -17,7 +17,7 @@ import java.util.UUID;
 public class UUIDTest implements Serializable {
 
     @Id
-    @Type(type="org.hibernate.type.PostgresUUIDType")
+    //@Type(type="org.hibernate.type.PostgresUUIDType")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID uuid;
 

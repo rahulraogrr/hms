@@ -59,7 +59,7 @@ public class HotelObjectDto {
             example = "25-03-1989",
             required = true
     )
-    private Date openDate;
+    private Date founded;
 
     @Schema(
             title = "groupId",

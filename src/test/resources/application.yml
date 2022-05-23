@@ -1,0 +1,32 @@
+##Spring Properties
+spring:
+  datasource: ##Datasource Properties
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:~/src/test/resources/db/data.sql;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+  jpa: ##JPA Properties
+    database: h2
+    properties:
+      hibernate.id.new_generator_mappings: true
+      hibernate.connection.provider_disables_autocommit: true
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        temp.use_jdbc_metadata_defaults: false
+    open-in-view: false
+
+##Logging Properties
+logging:
+  level:
+    sql: debug
+    root: info
+    web: debug
+
+##Server Configuration
+server:
+  port: 8999
