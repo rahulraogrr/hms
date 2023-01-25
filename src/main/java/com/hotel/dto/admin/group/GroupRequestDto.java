@@ -15,6 +15,7 @@ import lombok.*;
 @JsonPropertyOrder(
         value = {"group"}
 )
+@Builder
 public class GroupRequestDto extends BasicAdminRequest {
     private GroupObjectDto group;
 }
