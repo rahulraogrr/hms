@@ -1,11 +1,11 @@
 package com.hotel.entites.admin;
 
 import com.hotel.constants.Gender;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
