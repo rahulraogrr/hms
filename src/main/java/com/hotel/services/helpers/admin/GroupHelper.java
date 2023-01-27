@@ -1,63 +1,48 @@
 package com.hotel.services.helpers.admin;
 
-import com.hotel.dto.admin.group.GroupObjectDto;
 import com.hotel.dto.admin.group.GroupRequestDto;
 import com.hotel.dto.admin.group.GroupResponseDto;
 import com.hotel.entites.admin.Group;
+import com.hotel.mappers.admin.group.GroupReqDTOMapper;
+import com.hotel.mappers.admin.group.GroupResDTOMapper;
 import com.hotel.repositories.admin.GroupRepository;
 import com.hotel.util.CommonCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Component
 @Slf4j
+@Component
 public class GroupHelper {
-
     private final GroupRepository groupRepository;
+    private final GroupResDTOMapper groupResDTOMapper;
+    private final GroupReqDTOMapper groupReqDTOMapper;
 
-    public GroupHelper(GroupRepository groupRepository) {
+    public GroupHelper(GroupRepository groupRepository, GroupResDTOMapper groupResDTOMapper, GroupReqDTOMapper groupReqDTOMapper) {
         this.groupRepository = groupRepository;
+        this.groupResDTOMapper = groupResDTOMapper;
+        this.groupReqDTOMapper = groupReqDTOMapper;
     }
 
     public GroupResponseDto createGroup(GroupRequestDto requestDto) {
-        log.info("Request {}",requestDto);
-        Group group = new Group();
-        group.setStatus(requestDto.getGroup().getStatus());
-        group.setName(requestDto.getGroup().getName());
-        group.setAddress(CommonCode.getAddress(requestDto.getGroup().getAddress()));
-
-        Group savedGroupRepo = groupRepository.save(group);
-
-        return getGroupResponseDto(savedGroupRepo);
+        log.info("Create Request {}",requestDto);
+        return groupResDTOMapper
+                .apply(groupRepository.save(groupReqDTOMapper.apply(requestDto)));
     }
 
     public List<GroupResponseDto> findAll() {
-        List<Group> groupResponseDtos = groupRepository.findAll();
-        List<GroupResponseDto> responseDtos = new ArrayList<>();
-        groupResponseDtos.forEach(
-                groupResponseDto -> responseDtos.add(getGroupResponseDto(groupResponseDto))
-        );
-        return responseDtos;
+        return groupRepository.findAll()
+                .stream()
+                .map(groupResDTOMapper)
+                .collect(Collectors.toList());
     }
 
     public GroupResponseDto findById(Integer id) {
-        return getGroupResponseDto(groupRepository.findById(id).orElseThrow(RuntimeException::new));
-    }
-
-    private GroupResponseDto getGroupResponseDto(Group savedGroupRepo) {
-        GroupResponseDto responseDto = new GroupResponseDto();
-        GroupObjectDto savedGroup = new GroupObjectDto();
-
-        savedGroup.setAddress(CommonCode.getAddressDto(savedGroupRepo.getAddress()));
-        savedGroup.setStatus(savedGroupRepo.getStatus());
-        savedGroup.setName(savedGroupRepo.getName());
-        savedGroup.setId(savedGroupRepo.getId());
-
-        responseDto.setGroup(savedGroup);
-        return responseDto;
+        return groupRepository.findById(id)
+                .map(groupResDTOMapper)
+                .orElseThrow(RuntimeException::new);
     }
 
     public void deleteById(Integer id) {
@@ -73,6 +58,6 @@ public class GroupHelper {
         group.setName(existingGroup.getGroup().getName());
         group.setAddress(CommonCode.getAddress(existingGroup.getGroup().getAddress()));
 
-        return getGroupResponseDto(groupRepository.save(group));
+        return groupResDTOMapper.apply(groupRepository.save(group));
     }
 }

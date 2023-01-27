@@ -44,4 +44,11 @@ public class Group implements Serializable {
 
     @UpdateTimestamp
     private Date updateTs;
+
+    public Group(int id, String name, int status, Address address) {
+        this.id=id;
+        this.name=name;
+        this.status=status;
+        this.address=address;
+    }
 }

@@ -34,4 +34,15 @@ public class Address implements Serializable {
 
     @UpdateTimestamp
     private Date updateTs;
+
+    public Address(String address1, String address2, int type, String city,
+                   String state, String country, String pinCode) {
+        this.address1=address1;
+        this.address2=address2;
+        this.type=type;
+        this.city=city;
+        this.state=state;
+        this.country=country;
+        this.pinCode=pinCode;
+    }
 }

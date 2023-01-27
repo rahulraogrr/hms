@@ -4,15 +4,15 @@ import com.hotel.dto.admin.group.GroupObjectDto;
 import com.hotel.dto.admin.group.GroupRequestDto;
 import com.hotel.dto.admin.group.GroupResponseDto;
 import com.hotel.dto.portal.AddressDto;
+import com.hotel.mappers.admin.group.GroupReqDTOMapper;
+import com.hotel.mappers.admin.group.GroupResDTOMapper;
 import com.hotel.repositories.admin.GroupRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,12 +22,20 @@ class GroupHelperTest {
     @Autowired
     private GroupRepository groupRepository;
 
+    @Autowired
+    private GroupResDTOMapper groupResDTOMapper;
+
+    @Autowired
     private GroupHelper groupHelperUnderTest;
+
+    @Autowired
+    private GroupReqDTOMapper groupReqDTOMapper;
 
     @BeforeEach
     void setUp(){
         MockitoAnnotations.openMocks(this);
-        groupHelperUnderTest = new GroupHelper(groupRepository);
+        groupHelperUnderTest = new GroupHelper(groupRepository, groupResDTOMapper,
+                groupReqDTOMapper);
     }
 
     @Test
