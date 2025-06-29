@@ -34,17 +34,19 @@ class RoomServiceImplTest {
 
     @Test
     void create() {
-        roomValidator.validateRequest(Mockito.any());
-        Mockito.when(roomHelper.create(Mockito.any())).thenReturn(getValidRoomResponseDTO());
+        RoomResponseDto expectedResponse = getValidRoomResponseDTO();
 
-        RoomResponseDto response = roomHelper.create(getValidRoomRequestDTO());
+        Mockito.doNothing().when(roomValidator).validateRequest(Mockito.any());
+        Mockito.when(roomHelper.create(Mockito.any())).thenReturn(expectedResponse);
+
+        RoomResponseDto response = roomService.create(getValidRoomRequestDTO());
 
         assertNotNull(response);
-        assertEquals(response.getRoom().getRoomFloorId(), getValidRoomRequestDTO().getRoom().getRoomFloorId());
-        assertEquals(response.getRoom().getArea(), getValidRoomRequestDTO().getRoom().getArea());
-        assertEquals(response.getRoom().getStatus(), getValidRoomRequestDTO().getRoom().getStatus());
-        assertEquals(response.getRoom().getType(), getValidRoomRequestDTO().getRoom().getType());
-        assertTrue(response.getRoom().getId() > 0);
+        assertEquals(expectedResponse.getRoom().getRoomFloorId(), response.getRoom().getRoomFloorId());
+        assertEquals(expectedResponse.getRoom().getArea(), response.getRoom().getArea());
+        assertEquals(expectedResponse.getRoom().getStatus(), response.getRoom().getStatus());
+        assertEquals(expectedResponse.getRoom().getType(), response.getRoom().getType());
+        assertEquals(expectedResponse.getRoom().getId(), response.getRoom().getId());
     }
 
     private RoomResponseDto getValidRoomResponseDTO() {
