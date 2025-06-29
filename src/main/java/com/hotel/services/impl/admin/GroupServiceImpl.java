@@ -6,7 +6,6 @@ import com.hotel.services.admin.GroupService;
 import com.hotel.services.helpers.admin.GroupHelper;
 import com.hotel.services.validators.admin.GroupValidator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +14,13 @@ import java.util.List;
 @Slf4j
 public class GroupServiceImpl implements GroupService {
 
-    @Autowired
-    private GroupHelper groupHelper;
+    private final GroupHelper groupHelper;
+    private final GroupValidator groupValidator;
 
-    @Autowired
-    private GroupValidator groupValidator;
+    public GroupServiceImpl(GroupHelper groupHelper, GroupValidator groupValidator) {
+        this.groupHelper = groupHelper;
+        this.groupValidator = groupValidator;
+    }
 
     @Override
     public GroupResponseDto create(GroupRequestDto requestDto) {
