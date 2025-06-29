@@ -20,7 +20,8 @@ public class Parent implements Serializable {
     private int id;
     private String name;
     private int type;
-    private String iSIN;
+    @Column(name = "isin")
+    private String isin;
     private String industry;
 
     @Temporal(TemporalType.DATE)
