@@ -72,6 +72,7 @@ public class GroupHelper {
         group.setStatus(existingGroup.getGroup().getStatus());
         group.setName(existingGroup.getGroup().getName());
         group.setAddress(CommonCode.getAddress(existingGroup.getGroup().getAddress()));
+        group.setId(existingGroup.getGroup().getId());
 
         return getGroupResponseDto(groupRepository.save(group));
     }
