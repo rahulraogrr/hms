@@ -7,7 +7,7 @@ Hotel Management API is built for groups who have list or a single hotel. It has
 1. Admin Module
 2. HMS Portal
 
-**Admin Module**: In this module users with admin role can define a group under which hotels can be created. Below-mentioned are the list of masters developed for HMS API
+**Admin Module**: In this module users with admin role can define a group under which hotels can be created. Below is the list of masters developed for the HMS API:
 1. Group Master      : In this master an admin user can create/modify/browse/delete a group.After successful creation of group, system will generate a unique group id. Ex: Taj Group of Hotels
 2. Hotel Master      : For the created group id, admin user can create n number of hotels for that group.
 3. Floor Master      : A hotel contains a list of floors. After creation of hotel, admin user can create list of floors under a hotel.
