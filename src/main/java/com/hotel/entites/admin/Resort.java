@@ -38,7 +38,7 @@ public class Resort implements Serializable {
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "resort", fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Department> departments = new HashSet<>();
+    private final Set<Department> departments = new HashSet<>();
 
     @CreationTimestamp
     private Date createTs;

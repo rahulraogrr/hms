@@ -12,9 +12,9 @@ import java.util.Set;
 @Setter
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "A_PARENT_COMPANIES")
+@AllArgsConstructor
 public class Parent implements Serializable {
     @Id
     private int id;
@@ -32,5 +32,5 @@ public class Parent implements Serializable {
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent", fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Group> groups = new HashSet<>();
+    private final Set<Group> groups = new HashSet<>();
 }

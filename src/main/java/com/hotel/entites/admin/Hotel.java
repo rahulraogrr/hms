@@ -39,10 +39,10 @@ public class Hotel implements Serializable {
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hotel", fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Floor> floors = new HashSet<>();
+    private final Set<Floor> floors = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hotel", fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Department> departments = new HashSet<>();
+    private final Set<Department> departments = new HashSet<>();
 
     @CreationTimestamp
     private Date createTs;

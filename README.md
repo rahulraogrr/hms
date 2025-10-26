@@ -1,29 +1,95 @@
-# Hotel Management API [![CircleCI](https://circleci.com/gh/rahulraogrr/hms/tree/main.svg?style=svg)](https://circleci.com/gh/rahulraogrr/hms/tree/main) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2b5cbf01886a4cbab07cdb9620ff31af)](https://www.codacy.com/gh/rahulraogrr/hms/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rahulraogrr/hms&amp;utm_campaign=Badge_Grade) ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/rahulraogrr/hms) 
+ # Hotel Management API
 
-## Description
+ [![CircleCI](https://circleci.com/gh/rahulraogrr/hms/tree/main.svg?style=svg)](https://circleci.com/gh/rahulraogrr/hms/tree/main)
+ [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2b5cbf01886a4cbab07cdb9620ff31af)](https://www.codacy.com/gh/rahulraogrr/hms/dashboard?utm_source=github.com&utm_medium=referral&utm_content=rahulraogrr/hms&utm_campaign=Badge_Grade)
+ ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/rahulraogrr/hms)
 
-Hotel Management API is built for groups who have list or a single hotel. It has two modules as mentioned below
+A lightweight Spring Boot based Hotel Management API with two primary modules: an Admin module for managing hotel metadata and an HMS Portal for hotel staff operations.
 
-1. Admin Module
-2. HMS Portal
+---
 
-**Admin Module**: In this module users with admin role can define a group under which hotels can be created. Below is the list of masters developed for the HMS API:
-1. Group Master      : In this master an admin user can create/modify/browse/delete a group.After successful creation of group, system will generate a unique group id. Ex: Taj Group of Hotels
-2. Hotel Master      : For the created group id, admin user can create n number of hotels for that group.
-3. Floor Master      : A hotel contains a list of floors. After creation of hotel, admin user can create list of floors under a hotel.
-4. Room Master       : Rooms must be added for a created floor.
-5. Department Master : Departments must be created for a specific hotel. 
-6. Employee Master   : Employees will be working in various departments in a hotel in a particular department.
-7. Inventory Master  : Details of products available in a hotel.
+## Quick overview
 
-**HMS Portal**: In this module hotel employees can do the following activities mentioned below.
-1. Login/Logout to the portal
-2. Check-in/Check-out master
-3. Manage Bookings
-4. Manage different services available for a room once it is booked by the customer. Ex: Laundry Service
+- Admin Module: manage Groups, Hotels, Floors, Rooms, Departments, Employees and Inventory.
+- HMS Portal: staff-facing features such as login, check-in/check-out, bookings and room services.
+
+Core entities and masters implemented:
+
+- Group Master — create/modify/browse/delete groups
+- Hotel Master — create hotels belonging to a group
+- Floor Master — floors inside a hotel
+- Room Master — rooms under a floor
+- Department Master — departments per hotel
+- Employee Master — employees assigned to departments
+- Inventory Master — hotel inventory
 
 ## ER Diagram
-![image description](src/main/resources/static/images/er_diagram.png)
 
+![ER diagram](src/main/resources/static/images/er_diagram.png)
+
+---
+
+## Getting started (quick)
+
+Prerequisites
+
+- Java 17
+- Maven (or use the included `./mvnw` wrapper)
+
+Build and run (default profile uses PostgreSQL as configured in `application.yml`):
+
+```bash
+# build
+./mvnw -DskipTests package
+
+# run (using default datasource from application.yml)
+./mvnw spring-boot:run
+```
+
+## Run with the in-memory H2 database (recommended for local dev/tests)
+
+I added a lightweight H2 profile so you can run the app locally without installing Postgres.
+
+Usage:
+
+```bash
+# build with the Maven profile that adds H2 to the classpath
+./mvnw -Ph2 -DskipTests package
+
+# run and activate the Spring profile 'h2' so the H2 datasource is used
+./mvnw -Ph2 -Dspring-boot.run.profiles=h2 spring-boot:run
+
+# alternatively set the SPRING_PROFILES_ACTIVE env var
+export SPRING_PROFILES_ACTIVE=h2
+./mvnw -Ph2 spring-boot:run
+```
+
+H2 console (when running with the `h2` profile):
+
+- URL: http://localhost:8085/h2-console
+- JDBC URL: jdbc:h2:mem:testdb
+- User: sa
+- Password: (leave blank)
+
+Notes:
+
+- The Maven profile `h2` adds the H2 dependency only when you explicitly enable it (`-Ph2`). This keeps production builds free of the H2 runtime.
+- The JPA schema is configured to `create-drop` for the `h2` profile so data is ephemeral between runs.
+
+---
+
+## Development notes & tips
+
+- The project targets Java 17. A Maven Enforcer rule and compiler plugin are configured to ensure reproducible builds.
+- Lombok is used; if your IDE requires annotation-processing to be enabled, make sure it is turned on.
+- Swagger/OpenAPI UI (springdoc) is available when the app runs; check `/swagger-ui.html` or `/swagger-ui/index.html` depending on the starter.
+
+---
+
+If you want, I can:
+
+- Add a short CI step that runs the app with the `h2` profile and runs integration smoke tests.
+- Remove the deprecated `application-local.yml` file (I already removed it from the repo).
+- Add a short CONTRIBUTING section with local dev tips.
 
 Follow me on Twitter ![Twitter Follow](https://img.shields.io/twitter/follow/rahulrao20?style=social)

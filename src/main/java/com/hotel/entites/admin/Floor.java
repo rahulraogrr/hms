@@ -20,8 +20,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Floor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
@@ -36,7 +36,7 @@ public class Floor implements Serializable {
     private Hotel hotel;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "floor", fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Room> rooms = new HashSet<>();
+    private final Set<Room> rooms = new HashSet<>();
 
     @CreationTimestamp
     private Date createTs;

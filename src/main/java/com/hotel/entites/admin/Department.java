@@ -15,8 +15,8 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
 public class Department implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
@@ -36,7 +36,7 @@ public class Department implements Serializable {
     private Resort resort;
 
     @OneToMany(mappedBy = "department",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Employee> employees = new HashSet<>();
+    private final Set<Employee> employees = new HashSet<>();
 
     @CreationTimestamp
     private Date createTs;
