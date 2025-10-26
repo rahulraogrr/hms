@@ -1,5 +1,7 @@
 spring:
-  profiles: h2
+  config:
+    activate:
+      on-profile: h2
 
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
@@ -16,6 +18,10 @@ spring:
       ddl-auto: create-drop
     show-sql: true
     open-in-view: false
+
+  sql:
+    init:
+      mode: never
 
 h2:
   console:
