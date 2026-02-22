@@ -1,7 +1,7 @@
 package com.hotel.util;
 
 import com.hotel.dto.portal.AddressDto;
-import com.hotel.entites.admin.Address;
+import com.hotel.entities.admin.Address;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

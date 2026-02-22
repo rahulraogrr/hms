@@ -1,4 +1,4 @@
 /**
  * Entities Package
  */
-package com.hotel.entites;
+package com.hotel.entities;

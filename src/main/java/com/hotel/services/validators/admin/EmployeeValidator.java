@@ -1,6 +1,7 @@
 package com.hotel.services.validators.admin;
 
 import com.hotel.dto.admin.employee.EmployeeRequestDto;
+import com.hotel.exceptions.ResourceNotFoundException;
 import com.hotel.repositories.admin.DepartmentRepository;
 import com.hotel.services.validators.ServiceValidatorGeneric;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,8 @@ public class EmployeeValidator implements ServiceValidatorGeneric<EmployeeReques
     }
     @Override
     public void validateRequest(EmployeeRequestDto employeeRequestDto) {
-        if(departmentRepository.findById(employeeRequestDto.getEmployee().getEmpDeptId()).isEmpty())
-            throw new RuntimeException();
+        int deptId = employeeRequestDto.getEmployee().getEmpDeptId();
+        if(departmentRepository.findById(deptId).isEmpty())
+            throw new ResourceNotFoundException("Department", deptId);
     }
 }

@@ -34,8 +34,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeResponseDto> findAll() {
-        return employeeHelper.findAll();
+    public List<EmployeeResponseDto> findAll(int page, int size) {
+        return employeeHelper.findAll(page, size);
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface CrudServiceHelperGeneric<T,R,I> {
     R create(T t);
-    List<R> findAll();
+    List<R> findAll(int page, int size);
     R findById(I id);
     boolean deleteById(I id);
     R modify(I id, T t);

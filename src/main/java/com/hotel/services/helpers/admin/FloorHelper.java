@@ -3,11 +3,13 @@ package com.hotel.services.helpers.admin;
 import com.hotel.dto.admin.floor.FloorObjectDto;
 import com.hotel.dto.admin.floor.FloorRequestDto;
 import com.hotel.dto.admin.floor.FloorResponseDto;
-import com.hotel.entites.admin.Floor;
+import com.hotel.entities.admin.Floor;
+import com.hotel.exceptions.ResourceNotFoundException;
 import com.hotel.repositories.admin.FloorRepository;
 import com.hotel.repositories.admin.HotelRepository;
 import com.hotel.services.helpers.CrudServiceHelperGeneric;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -36,15 +38,17 @@ public class FloorHelper implements CrudServiceHelperGeneric<FloorRequestDto, Fl
     }
 
     @Override
-    public List<FloorResponseDto> findAll() {
-        return floorRepository.findAll().stream()
+    public List<FloorResponseDto> findAll(int page, int size) {
+        return floorRepository.findAll(PageRequest.of(page, size))
+                .stream()
                 .map(FloorHelper::getFloorResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
     public FloorResponseDto findById(Integer id) {
-        return getFloorResponse(floorRepository.findById(id).get());
+        return getFloorResponse(floorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Floor", id)));
     }
 
     @Override
@@ -55,7 +59,18 @@ public class FloorHelper implements CrudServiceHelperGeneric<FloorRequestDto, Fl
 
     @Override
     public FloorResponseDto modify(Integer id, FloorRequestDto floorRequestDto) {
-        return null;
+        Floor floor = floorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Floor", id));
+
+        floor.setNoOfRooms(floorRequestDto.getFloor().getNoOfRooms());
+        floor.setStatus(floorRequestDto.getFloor().getStatus());
+
+        if (floorRequestDto.getFloor().getHotelId() != floor.getHotel().getId()) {
+            floor.setHotel(hotelRepository.findById(floorRequestDto.getFloor().getHotelId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Hotel", floorRequestDto.getFloor().getHotelId())));
+        }
+
+        return getFloorResponse(floorRepository.save(floor));
     }
 
     private static FloorResponseDto getFloorResponse(Floor floor){
@@ -75,7 +90,8 @@ public class FloorHelper implements CrudServiceHelperGeneric<FloorRequestDto, Fl
         return Floor.builder()
                 .noOfRooms(floorRequestDto.getFloor().getNoOfRooms())
                 .status(floorRequestDto.getFloor().getStatus())
-                .hotel(hotelRepository.getById(floorRequestDto.getFloor().getHotelId()))
+                .hotel(hotelRepository.findById(floorRequestDto.getFloor().getHotelId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Hotel", floorRequestDto.getFloor().getHotelId())))
                 .build();
     }
 }

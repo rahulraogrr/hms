@@ -26,13 +26,13 @@ public class GroupServiceImpl implements GroupService {
     public GroupResponseDto create(GroupRequestDto requestDto) {
         log.info("Creating Group : {}",requestDto.getGroup().getId());
         groupValidator.validateRequest(requestDto);
-        return groupHelper.createGroup(requestDto);
+        return groupHelper.create(requestDto);
     }
 
     @Override
-    public List<GroupResponseDto> findAll() {
-        log.info("Browse All Groups");
-        return groupHelper.findAll();
+    public List<GroupResponseDto> findAll(int page, int size) {
+        log.info("Browse All Groups - page={}, size={}", page, size);
+        return groupHelper.findAll(page, size);
     }
 
     @Override
@@ -51,6 +51,6 @@ public class GroupServiceImpl implements GroupService {
     public GroupResponseDto modify(Integer id, GroupRequestDto requestDto) {
         log.info("Modify Group By ID : {}",id);
         groupValidator.validateRequest(requestDto);
-        return groupHelper.modifyGroup(requestDto);
+        return groupHelper.modify(id, requestDto);
     }
 }

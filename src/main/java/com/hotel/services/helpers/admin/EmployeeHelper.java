@@ -3,12 +3,16 @@ package com.hotel.services.helpers.admin;
 import com.hotel.dto.admin.employee.EmployeeObjectDto;
 import com.hotel.dto.admin.employee.EmployeeRequestDto;
 import com.hotel.dto.admin.employee.EmployeeResponseDto;
-import com.hotel.entites.admin.Employee;
+import com.hotel.dto.portal.AddressDto;
+import com.hotel.entities.admin.Address;
+import com.hotel.entities.admin.Employee;
+import com.hotel.exceptions.ResourceNotFoundException;
 import com.hotel.repositories.admin.DepartmentRepository;
 import com.hotel.repositories.admin.EmployeeRepository;
 import com.hotel.services.helpers.CrudServiceHelperGeneric;
 import com.hotel.util.CommonCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -37,15 +41,17 @@ public class EmployeeHelper implements CrudServiceHelperGeneric<EmployeeRequestD
     }
 
     @Override
-    public List<EmployeeResponseDto> findAll() {
-        return employeeRepository.findAll().stream()
+    public List<EmployeeResponseDto> findAll(int page, int size) {
+        return employeeRepository.findAll(PageRequest.of(page, size))
+                .stream()
                 .map(EmployeeHelper::getEmployeeResponseDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public EmployeeResponseDto findById(Long id) {
-        return getEmployeeResponseDto(employeeRepository.findById(id).get());
+        return getEmployeeResponseDto(employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee", id)));
     }
 
     @Override
@@ -56,7 +62,62 @@ public class EmployeeHelper implements CrudServiceHelperGeneric<EmployeeRequestD
 
     @Override
     public EmployeeResponseDto modify(Long id, EmployeeRequestDto employeeRequestDto) {
-        return null;
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee", id));
+
+        EmployeeObjectDto dto = employeeRequestDto.getEmployee();
+        employee.setFirstName(dto.getFirstName());
+        employee.setMiddleName(dto.getMiddleName());
+        employee.setLastName(dto.getLastName());
+        employee.setGender(dto.getGender());
+        employee.setMobile(dto.getMobile());
+        employee.setDateOfBirth(dto.getDateOfBirth());
+        employee.setEduType(dto.getEduType());
+        employee.setIdType(dto.getIdType());
+        employee.setIdNo(dto.getIdNo());
+        if (dto.getReportsTo() != 0) {
+            employee.setManager(employeeRepository.findById(dto.getReportsTo())
+                    .orElseThrow(() -> new ResourceNotFoundException("Employee (manager)", dto.getReportsTo())));
+        } else {
+            employee.setManager(null);
+        }
+        employee.setDesignation(dto.getDesignation());
+        employee.setGrade(dto.getGrade());
+        employee.setStatus(dto.getStatus());
+        employee.setCurrAddSameAsPermAdd(dto.isCurrAddSameAsPermAdd());
+
+        if (dto.getCurAddress() != null) {
+            if (employee.getCurAddress() != null) {
+                updateAddressInPlace(employee.getCurAddress(), dto.getCurAddress());
+            } else {
+                employee.setCurAddress(CommonCode.getAddress(dto.getCurAddress()));
+            }
+        }
+
+        if (dto.getPermAddress() != null) {
+            if (employee.getPermAddress() != null) {
+                updateAddressInPlace(employee.getPermAddress(), dto.getPermAddress());
+            } else {
+                employee.setPermAddress(CommonCode.getAddress(dto.getPermAddress()));
+            }
+        }
+
+        if (dto.getEmpDeptId() != employee.getDepartment().getId()) {
+            employee.setDepartment(departmentRepository.findById(dto.getEmpDeptId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Department", dto.getEmpDeptId())));
+        }
+
+        return getEmployeeResponseDto(employeeRepository.save(employee));
+    }
+
+    private static void updateAddressInPlace(Address address, AddressDto dto) {
+        address.setAddress1(dto.getAddress1());
+        address.setAddress2(dto.getAddress2());
+        address.setCity(dto.getCity());
+        address.setState(dto.getState());
+        address.setCountry(dto.getCountry());
+        address.setPinCode(dto.getPinCode());
+        address.setType(dto.getType());
     }
 
     private static EmployeeResponseDto getEmployeeResponseDto(Employee employee){
@@ -74,7 +135,7 @@ public class EmployeeHelper implements CrudServiceHelperGeneric<EmployeeRequestD
                                 .idType(employee.getIdType())
                                 .idNo(employee.getIdNo())
                                 .empDeptId(employee.getDepartment().getId())
-                                .reportsTo(employee.getReportsTo())
+                                .reportsTo(employee.getManager() != null ? employee.getManager().getId() : 0L)
                                 .designation(employee.getDesignation())
                                 .grade(employee.getGrade())
                                 .status(employee.getStatus())
@@ -97,14 +158,19 @@ public class EmployeeHelper implements CrudServiceHelperGeneric<EmployeeRequestD
                 .eduType(employeeRequestDto.getEmployee().getEduType())
                 .idType(employeeRequestDto.getEmployee().getIdType())
                 .idNo(employeeRequestDto.getEmployee().getIdNo())
-                .reportsTo(employeeRequestDto.getEmployee().getReportsTo())
+                .manager(employeeRequestDto.getEmployee().getReportsTo() != 0
+                        ? employeeRepository.findById(employeeRequestDto.getEmployee().getReportsTo())
+                                .orElseThrow(() -> new ResourceNotFoundException("Employee (manager)",
+                                        employeeRequestDto.getEmployee().getReportsTo()))
+                        : null)
                 .designation(employeeRequestDto.getEmployee().getDesignation())
                 .grade(employeeRequestDto.getEmployee().getGrade())
                 .status(employeeRequestDto.getEmployee().getStatus())
                 .curAddress(CommonCode.getAddress(employeeRequestDto.getEmployee().getCurAddress()))
                 .currAddSameAsPermAdd(employeeRequestDto.getEmployee().isCurrAddSameAsPermAdd())
                 .permAddress(CommonCode.getAddress(employeeRequestDto.getEmployee().getPermAddress()))
-                .department(departmentRepository.findById(employeeRequestDto.getEmployee().getEmpDeptId()).get())
+                .department(departmentRepository.findById(employeeRequestDto.getEmployee().getEmpDeptId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Department", employeeRequestDto.getEmployee().getEmpDeptId())))
                 .build();
     }
 }

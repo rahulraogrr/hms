@@ -2,9 +2,9 @@
 spring:
   datasource: ##Datasource Properties
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres?createDatabaseIfNotExist=true
-    username: postgres
-    password: postgres
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -23,15 +23,15 @@ spring:
     open-in-view: false
     generate-ddl: true
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: validate
+    show-sql: false
 
 ##Logging Properties
 logging:
   level:
-    sql: debug
+    sql: info
     root: info
-    web: debug
+    web: info
 
 ##Server Configuration
 server:

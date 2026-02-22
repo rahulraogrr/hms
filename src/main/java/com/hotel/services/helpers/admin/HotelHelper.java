@@ -3,11 +3,15 @@ package com.hotel.services.helpers.admin;
 import com.hotel.dto.admin.hotel.HotelObjectDto;
 import com.hotel.dto.admin.hotel.HotelRequestDto;
 import com.hotel.dto.admin.hotel.HotelResponseDto;
-import com.hotel.entites.admin.Hotel;
+import com.hotel.dto.portal.AddressDto;
+import com.hotel.entities.admin.Address;
+import com.hotel.entities.admin.Hotel;
+import com.hotel.exceptions.ResourceNotFoundException;
 import com.hotel.repositories.admin.GroupRepository;
 import com.hotel.repositories.admin.HotelRepository;
 import com.hotel.services.helpers.CrudServiceHelperGeneric;
 import com.hotel.util.CommonCode;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -33,13 +37,14 @@ public class HotelHelper implements CrudServiceHelperGeneric<HotelRequestDto, Ho
                 .founded(hotelRequestDto.getHotel().getFounded())
                 .name(hotelRequestDto.getHotel().getName())
                 .status(hotelRequestDto.getHotel().getStatus())
-                .group(groupRepository.getById(hotelRequestDto.getHotel().getGroupId()))
+                .group(groupRepository.getReferenceById(hotelRequestDto.getHotel().getGroupId()))
                 .build()));
     }
 
     @Override
-    public List<HotelResponseDto> findAll() {
-        return hotelRepository.findAll().stream().map(HotelHelper::getHotelResponse).collect(Collectors.toList());
+    public List<HotelResponseDto> findAll(int page, int size) {
+        return hotelRepository.findAll(PageRequest.of(page, size))
+                .stream().map(HotelHelper::getHotelResponse).collect(Collectors.toList());
     }
 
     private static HotelResponseDto getHotelResponse(Hotel hotel) {
@@ -58,7 +63,8 @@ public class HotelHelper implements CrudServiceHelperGeneric<HotelRequestDto, Ho
 
     @Override
     public HotelResponseDto findById(Integer id) {
-        return getHotelResponse(hotelRepository.findById(id).get());
+        return getHotelResponse(hotelRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel", id)));
     }
 
     @Override
@@ -69,6 +75,38 @@ public class HotelHelper implements CrudServiceHelperGeneric<HotelRequestDto, Ho
 
     @Override
     public HotelResponseDto modify(Integer id, HotelRequestDto requestDto) {
-        return null;
+        Hotel hotel = hotelRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel", id));
+
+        HotelObjectDto dto = requestDto.getHotel();
+        hotel.setName(dto.getName());
+        hotel.setStatus(dto.getStatus());
+        hotel.setNoOfFloors(dto.getNoOfFloors());
+        hotel.setFounded(dto.getFounded());
+
+        if (dto.getAddress() != null) {
+            if (hotel.getAddress() != null) {
+                updateAddressInPlace(hotel.getAddress(), dto.getAddress());
+            } else {
+                hotel.setAddress(CommonCode.getAddress(dto.getAddress()));
+            }
+        }
+
+        if (dto.getGroupId() != hotel.getGroup().getId()) {
+            hotel.setGroup(groupRepository.findById(dto.getGroupId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Group", dto.getGroupId())));
+        }
+
+        return getHotelResponse(hotelRepository.save(hotel));
+    }
+
+    private static void updateAddressInPlace(Address address, AddressDto dto) {
+        address.setAddress1(dto.getAddress1());
+        address.setAddress2(dto.getAddress2());
+        address.setCity(dto.getCity());
+        address.setState(dto.getState());
+        address.setCountry(dto.getCountry());
+        address.setPinCode(dto.getPinCode());
+        address.setType(dto.getType());
     }
 }

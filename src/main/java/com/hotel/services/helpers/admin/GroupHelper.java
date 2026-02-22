@@ -3,18 +3,23 @@ package com.hotel.services.helpers.admin;
 import com.hotel.dto.admin.group.GroupObjectDto;
 import com.hotel.dto.admin.group.GroupRequestDto;
 import com.hotel.dto.admin.group.GroupResponseDto;
-import com.hotel.entites.admin.Group;
+import com.hotel.dto.portal.AddressDto;
+import com.hotel.entities.admin.Address;
+import com.hotel.entities.admin.Group;
+import com.hotel.exceptions.ResourceNotFoundException;
 import com.hotel.repositories.admin.GroupRepository;
+import com.hotel.services.helpers.CrudServiceHelperGeneric;
 import com.hotel.util.CommonCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
-public class GroupHelper {
+public class GroupHelper implements CrudServiceHelperGeneric<GroupRequestDto, GroupResponseDto, Integer> {
 
     private final GroupRepository groupRepository;
 
@@ -22,7 +27,8 @@ public class GroupHelper {
         this.groupRepository = groupRepository;
     }
 
-    public GroupResponseDto createGroup(GroupRequestDto requestDto) {
+    @Override
+    public GroupResponseDto create(GroupRequestDto requestDto) {
         log.info("Request {}",requestDto);
         Group group = new Group();
         group.setStatus(requestDto.getGroup().getStatus());
@@ -34,17 +40,17 @@ public class GroupHelper {
         return getGroupResponseDto(savedGroupRepo);
     }
 
-    public List<GroupResponseDto> findAll() {
-        List<Group> groupResponseDtos = groupRepository.findAll();
-        List<GroupResponseDto> responseDtos = new ArrayList<>();
-        groupResponseDtos.forEach(
-                groupResponseDto -> responseDtos.add(getGroupResponseDto(groupResponseDto))
-        );
-        return responseDtos;
+    @Override
+    public List<GroupResponseDto> findAll(int page, int size) {
+        return groupRepository.findAll(PageRequest.of(page, size))
+                .stream()
+                .map(this::getGroupResponseDto)
+                .collect(Collectors.toList());
     }
 
     public GroupResponseDto findById(Integer id) {
-        return getGroupResponseDto(groupRepository.findById(id).orElseThrow(RuntimeException::new));
+        return getGroupResponseDto(groupRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Group", id)));
     }
 
     private GroupResponseDto getGroupResponseDto(Group savedGroupRepo) {
@@ -60,20 +66,38 @@ public class GroupHelper {
         return responseDto;
     }
 
-    public void deleteById(Integer id) {
+    @Override
+    public boolean deleteById(Integer id) {
         groupRepository.deleteById(id);
+        return true;
     }
 
-    public GroupResponseDto modifyGroup(GroupRequestDto requestDto) {
-        GroupResponseDto existingGroup = findById(requestDto.getGroup().getId());
-        existingGroup.setGroup(requestDto.getGroup());
+    @Override
+    public GroupResponseDto modify(Integer id, GroupRequestDto requestDto) {
+        Group group = groupRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Group", id));
 
-        Group group = new Group();
-        group.setStatus(existingGroup.getGroup().getStatus());
-        group.setName(existingGroup.getGroup().getName());
-        group.setAddress(CommonCode.getAddress(existingGroup.getGroup().getAddress()));
-        group.setId(existingGroup.getGroup().getId());
+        group.setName(requestDto.getGroup().getName());
+        group.setStatus(requestDto.getGroup().getStatus());
+
+        if (requestDto.getGroup().getAddress() != null) {
+            if (group.getAddress() != null) {
+                updateAddressInPlace(group.getAddress(), requestDto.getGroup().getAddress());
+            } else {
+                group.setAddress(CommonCode.getAddress(requestDto.getGroup().getAddress()));
+            }
+        }
 
         return getGroupResponseDto(groupRepository.save(group));
+    }
+
+    private static void updateAddressInPlace(Address address, AddressDto dto) {
+        address.setAddress1(dto.getAddress1());
+        address.setAddress2(dto.getAddress2());
+        address.setCity(dto.getCity());
+        address.setState(dto.getState());
+        address.setCountry(dto.getCountry());
+        address.setPinCode(dto.getPinCode());
+        address.setType(dto.getType());
     }
 }

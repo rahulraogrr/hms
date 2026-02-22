@@ -32,8 +32,8 @@ public class EmployeeController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<EmployeeResponseDto>> getAllEmployees(){
-        return ResponseEntity.ok(employeeService.findAll());
+    public ResponseEntity<List<EmployeeResponseDto>> getAllEmployees(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size){
+        return ResponseEntity.ok(employeeService.findAll(page, size));
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

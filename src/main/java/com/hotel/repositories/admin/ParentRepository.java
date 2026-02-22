@@ -1,6 +1,6 @@
 package com.hotel.repositories.admin;
 
-import com.hotel.entites.admin.Parent;
+import com.hotel.entities.admin.Parent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

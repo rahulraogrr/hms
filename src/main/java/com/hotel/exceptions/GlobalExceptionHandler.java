@@ -22,6 +22,32 @@ import java.util.List;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(value = { ResourceNotFoundException.class })
+    public ResponseEntity<ApiErrorResponse> handleNotFound(ResourceNotFoundException e) {
+        log.warn("Resource not found: {}", e.getMessage());
+
+        InternalServerError error = new InternalServerError();
+        error.setTimestamp(LocalDateTime.now());
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setMessages(List.of(InternalServerMessage.builder()
+                .defaultMessage(e.getMessage()).build()));
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = { IllegalArgumentException.class })
+    public ResponseEntity<ApiErrorResponse> handleBadRequest(IllegalArgumentException e) {
+        log.warn("Bad request: {}", e.getMessage());
+
+        InternalServerError error = new InternalServerError();
+        error.setTimestamp(LocalDateTime.now());
+        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setMessages(List.of(InternalServerMessage.builder()
+                .defaultMessage(e.getMessage()).build()));
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(value = { Exception.class })
     public ResponseEntity<ApiErrorResponse> handleInternalServerError(Exception e){
         log.error("UNHANDLED EXCEPTION: ",e);
@@ -30,7 +56,7 @@ public class GlobalExceptionHandler {
         error.setTimestamp(LocalDateTime.now());
         error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         error.setMessages(List.of(InternalServerMessage.builder()
-                .defaultMessage("").build()));
+                .defaultMessage("An unexpected error occurred. Please try again later.").build()));
 
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -1,4 +1,4 @@
-package com.hotel.entites.admin;
+package com.hotel.entities.admin;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

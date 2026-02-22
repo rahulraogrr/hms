@@ -1,6 +1,6 @@
 package com.hotel.api;
 
-import com.hotel.entites.UUIDTest;
+import com.hotel.entities.UUIDTest;
 import com.hotel.repositories.UUIDRepo;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;

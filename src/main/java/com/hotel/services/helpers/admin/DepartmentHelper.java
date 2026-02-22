@@ -3,11 +3,13 @@ package com.hotel.services.helpers.admin;
 import com.hotel.dto.admin.department.DepartmentObjectDto;
 import com.hotel.dto.admin.department.DepartmentRequestDto;
 import com.hotel.dto.admin.department.DepartmentResponseDto;
-import com.hotel.entites.admin.Department;
+import com.hotel.entities.admin.Department;
+import com.hotel.exceptions.ResourceNotFoundException;
 import com.hotel.repositories.admin.DepartmentRepository;
 import com.hotel.repositories.admin.HotelRepository;
 import com.hotel.services.helpers.CrudServiceHelperGeneric;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -36,15 +38,17 @@ public class DepartmentHelper implements CrudServiceHelperGeneric<DepartmentRequ
     }
 
     @Override
-    public List<DepartmentResponseDto> findAll() {
-        return departmentRepository.findAll().stream()
+    public List<DepartmentResponseDto> findAll(int page, int size) {
+        return departmentRepository.findAll(PageRequest.of(page, size))
+                .stream()
                 .map(DepartmentHelper::getDepartmentResponseDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public DepartmentResponseDto findById(Integer id) {
-        return getDepartmentResponseDto(departmentRepository.findById(id).get());
+        return getDepartmentResponseDto(departmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Department", id)));
     }
 
     @Override
@@ -55,7 +59,19 @@ public class DepartmentHelper implements CrudServiceHelperGeneric<DepartmentRequ
 
     @Override
     public DepartmentResponseDto modify(Integer id, DepartmentRequestDto departmentRequestDto) {
-        return null;
+        Department department = departmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Department", id));
+
+        department.setType(departmentRequestDto.getDepartment().getType());
+        department.setName(departmentRequestDto.getDepartment().getName());
+        department.setStatus(departmentRequestDto.getDepartment().getStatus());
+
+        if (departmentRequestDto.getDepartment().getDeptHotelId() != department.getHotel().getId()) {
+            department.setHotel(hotelRepository.findById(departmentRequestDto.getDepartment().getDeptHotelId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Hotel", departmentRequestDto.getDepartment().getDeptHotelId())));
+        }
+
+        return getDepartmentResponseDto(departmentRepository.save(department));
     }
 
     private static DepartmentResponseDto getDepartmentResponseDto(Department department){
@@ -77,7 +93,8 @@ public class DepartmentHelper implements CrudServiceHelperGeneric<DepartmentRequ
                 .type(departmentRequestDto.getDepartment().getType())
                 .name(departmentRequestDto.getDepartment().getName())
                 .status(departmentRequestDto.getDepartment().getStatus())
-                .hotel(hotelRepository.findById(departmentRequestDto.getDepartment().getDeptHotelId()).get())
+                .hotel(hotelRepository.findById(departmentRequestDto.getDepartment().getDeptHotelId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Hotel", departmentRequestDto.getDepartment().getDeptHotelId())))
                 .build();
     }
 

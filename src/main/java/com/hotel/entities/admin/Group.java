@@ -1,6 +1,8 @@
-package com.hotel.entites.admin;
+package com.hotel.entities.admin;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,34 +13,31 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "A_RESORTS")
+@Table(name = "A_GROUPS")
 @Setter
 @Getter
 @NoArgsConstructor
-@Builder
-@AllArgsConstructor
-public class Resort implements Serializable {
+public class Group implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     @SequenceGenerator(name = "global_seq", sequenceName = "GLOBAL_SEQUENCE")
     private int id;
 
+    @Column(name = "name", length = 20)
     private String name;
+
     private int status;
 
-    @Temporal(TemporalType.DATE)
-    private Date founded;
-
-    @ManyToOne
-    @JoinColumn(name = "resort_group_id", referencedColumnName = "id")
-    private Group group;
-
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "resort_address_id",referencedColumnName = "id")
+    @JoinColumn(name = "group_address_id", referencedColumnName = "id")
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "resort", fetch = FetchType.LAZY, orphanRemoval = true)
-    private final Set<Department> departments = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group", fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Hotel> hotels = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "group_parent_id", referencedColumnName = "id")
+    private Parent parent;
 
     @CreationTimestamp
     private Date createTs;
