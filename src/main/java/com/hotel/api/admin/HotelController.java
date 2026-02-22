@@ -31,8 +31,8 @@ public class HotelController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<HotelResponseDto>> getAllHotels(){
-        return ResponseEntity.ok(hotelService.findAll());
+    public ResponseEntity<List<HotelResponseDto>> getAllHotels(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size){
+        return ResponseEntity.ok(hotelService.findAll(page, size));
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

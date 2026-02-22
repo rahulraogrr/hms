@@ -8,16 +8,18 @@ import com.hotel.entites.admin.Address;
 import com.hotel.entites.admin.Group;
 import com.hotel.exceptions.ResourceNotFoundException;
 import com.hotel.repositories.admin.GroupRepository;
+import com.hotel.services.helpers.CrudServiceHelperGeneric;
 import com.hotel.util.CommonCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
-public class GroupHelper {
+public class GroupHelper implements CrudServiceHelperGeneric<GroupRequestDto, GroupResponseDto, Integer> {
 
     private final GroupRepository groupRepository;
 
@@ -25,7 +27,8 @@ public class GroupHelper {
         this.groupRepository = groupRepository;
     }
 
-    public GroupResponseDto createGroup(GroupRequestDto requestDto) {
+    @Override
+    public GroupResponseDto create(GroupRequestDto requestDto) {
         log.info("Request {}",requestDto);
         Group group = new Group();
         group.setStatus(requestDto.getGroup().getStatus());
@@ -37,13 +40,12 @@ public class GroupHelper {
         return getGroupResponseDto(savedGroupRepo);
     }
 
-    public List<GroupResponseDto> findAll() {
-        List<Group> groupResponseDtos = groupRepository.findAll();
-        List<GroupResponseDto> responseDtos = new ArrayList<>();
-        groupResponseDtos.forEach(
-                groupResponseDto -> responseDtos.add(getGroupResponseDto(groupResponseDto))
-        );
-        return responseDtos;
+    @Override
+    public List<GroupResponseDto> findAll(int page, int size) {
+        return groupRepository.findAll(PageRequest.of(page, size))
+                .stream()
+                .map(this::getGroupResponseDto)
+                .collect(Collectors.toList());
     }
 
     public GroupResponseDto findById(Integer id) {
@@ -64,11 +66,14 @@ public class GroupHelper {
         return responseDto;
     }
 
-    public void deleteById(Integer id) {
+    @Override
+    public boolean deleteById(Integer id) {
         groupRepository.deleteById(id);
+        return true;
     }
 
-    public GroupResponseDto modifyGroup(Integer id, GroupRequestDto requestDto) {
+    @Override
+    public GroupResponseDto modify(Integer id, GroupRequestDto requestDto) {
         Group group = groupRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Group", id));
 

@@ -34,8 +34,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<RoomResponseDto> findAll() {
-        return roomHelper.findAll();
+    public List<RoomResponseDto> findAll(int page, int size) {
+        return roomHelper.findAll(page, size);
     }
 
     @Override

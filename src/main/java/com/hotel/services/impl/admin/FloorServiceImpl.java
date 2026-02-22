@@ -34,8 +34,8 @@ public class FloorServiceImpl implements FloorService {
     }
 
     @Override
-    public List<FloorResponseDto> findAll() {
-        return floorHelper.findAll();
+    public List<FloorResponseDto> findAll(int page, int size) {
+        return floorHelper.findAll(page, size);
     }
 
     @Override

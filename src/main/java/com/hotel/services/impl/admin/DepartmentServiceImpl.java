@@ -34,8 +34,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<DepartmentResponseDto> findAll() {
-        return departmentHelper.findAll();
+    public List<DepartmentResponseDto> findAll(int page, int size) {
+        return departmentHelper.findAll(page, size);
     }
 
     @Override

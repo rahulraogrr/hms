@@ -11,6 +11,7 @@ import com.hotel.repositories.admin.GroupRepository;
 import com.hotel.repositories.admin.HotelRepository;
 import com.hotel.services.helpers.CrudServiceHelperGeneric;
 import com.hotel.util.CommonCode;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -41,8 +42,9 @@ public class HotelHelper implements CrudServiceHelperGeneric<HotelRequestDto, Ho
     }
 
     @Override
-    public List<HotelResponseDto> findAll() {
-        return hotelRepository.findAll().stream().map(HotelHelper::getHotelResponse).collect(Collectors.toList());
+    public List<HotelResponseDto> findAll(int page, int size) {
+        return hotelRepository.findAll(PageRequest.of(page, size))
+                .stream().map(HotelHelper::getHotelResponse).collect(Collectors.toList());
     }
 
     private static HotelResponseDto getHotelResponse(Hotel hotel) {

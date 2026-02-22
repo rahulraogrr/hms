@@ -9,6 +9,7 @@ import com.hotel.repositories.admin.FloorRepository;
 import com.hotel.repositories.admin.RoomRepository;
 import com.hotel.services.helpers.CrudServiceHelperGeneric;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -36,8 +37,9 @@ public class RoomHelper implements CrudServiceHelperGeneric<RoomRequestDto, Room
     }
 
     @Override
-    public List<RoomResponseDto> findAll() {
-        return roomRepository.findAll().stream()
+    public List<RoomResponseDto> findAll(int page, int size) {
+        return roomRepository.findAll(PageRequest.of(page, size))
+                .stream()
                 .map(RoomHelper::getRoomResponseDto)
                 .collect(Collectors.toList());
     }

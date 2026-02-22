@@ -23,15 +23,15 @@ spring:
     open-in-view: false
     generate-ddl: true
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: validate
+    show-sql: false
 
 ##Logging Properties
 logging:
   level:
-    sql: debug
+    sql: info
     root: info
-    web: debug
+    web: info
 
 ##Server Configuration
 server:

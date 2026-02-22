@@ -12,6 +12,7 @@ import com.hotel.repositories.admin.EmployeeRepository;
 import com.hotel.services.helpers.CrudServiceHelperGeneric;
 import com.hotel.util.CommonCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -40,8 +41,9 @@ public class EmployeeHelper implements CrudServiceHelperGeneric<EmployeeRequestD
     }
 
     @Override
-    public List<EmployeeResponseDto> findAll() {
-        return employeeRepository.findAll().stream()
+    public List<EmployeeResponseDto> findAll(int page, int size) {
+        return employeeRepository.findAll(PageRequest.of(page, size))
+                .stream()
                 .map(EmployeeHelper::getEmployeeResponseDto)
                 .collect(Collectors.toList());
     }

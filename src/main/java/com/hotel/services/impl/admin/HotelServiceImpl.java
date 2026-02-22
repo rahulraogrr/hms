@@ -30,8 +30,8 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<HotelResponseDto> findAll() {
-        return hotelHelper.findAll();
+    public List<HotelResponseDto> findAll(int page, int size) {
+        return hotelHelper.findAll(page, size);
     }
 
     @Override

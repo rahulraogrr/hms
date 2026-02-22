@@ -31,8 +31,8 @@ public class RoomController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<RoomResponseDto>> getAllRooms(){
-        return ResponseEntity.ok(roomService.findAll());
+    public ResponseEntity<List<RoomResponseDto>> getAllRooms(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size){
+        return ResponseEntity.ok(roomService.findAll(page, size));
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
