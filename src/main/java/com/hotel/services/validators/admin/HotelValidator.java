@@ -1,6 +1,7 @@
 package com.hotel.services.validators.admin;
 
 import com.hotel.dto.admin.hotel.HotelRequestDto;
+import com.hotel.exceptions.ResourceNotFoundException;
 import com.hotel.repositories.admin.GroupRepository;
 import com.hotel.services.validators.ServiceValidatorGeneric;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,8 @@ public class HotelValidator implements ServiceValidatorGeneric<HotelRequestDto> 
 
     @Override
     public void validateRequest(HotelRequestDto hotelRequestDto) {
-        if(groupRepository.findById(hotelRequestDto.getHotel().getGroupId()).isEmpty())
-            throw new RuntimeException();
+        int groupId = hotelRequestDto.getHotel().getGroupId();
+        if(groupRepository.findById(groupId).isEmpty())
+            throw new ResourceNotFoundException("Group", groupId);
     }
 }

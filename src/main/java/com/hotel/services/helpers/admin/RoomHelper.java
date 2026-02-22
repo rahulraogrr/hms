@@ -4,6 +4,7 @@ import com.hotel.dto.admin.room.RoomObjectDto;
 import com.hotel.dto.admin.room.RoomRequestDto;
 import com.hotel.dto.admin.room.RoomResponseDto;
 import com.hotel.entites.admin.Room;
+import com.hotel.exceptions.ResourceNotFoundException;
 import com.hotel.repositories.admin.FloorRepository;
 import com.hotel.repositories.admin.RoomRepository;
 import com.hotel.services.helpers.CrudServiceHelperGeneric;
@@ -43,7 +44,8 @@ public class RoomHelper implements CrudServiceHelperGeneric<RoomRequestDto, Room
 
     @Override
     public RoomResponseDto findById(Integer id) {
-        return getRoomResponseDto(roomRepository.findById(id).get());
+        return getRoomResponseDto(roomRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Room", id)));
     }
 
     @Override
@@ -54,7 +56,19 @@ public class RoomHelper implements CrudServiceHelperGeneric<RoomRequestDto, Room
 
     @Override
     public RoomResponseDto modify(Integer id, RoomRequestDto roomRequestDto) {
-        return null;
+        Room room = roomRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Room", id));
+
+        room.setType(roomRequestDto.getRoom().getType());
+        room.setArea(roomRequestDto.getRoom().getArea());
+        room.setStatus(roomRequestDto.getRoom().getStatus());
+
+        if (roomRequestDto.getRoom().getRoomFloorId() != room.getFloor().getId()) {
+            room.setFloor(floorRepository.findById(roomRequestDto.getRoom().getRoomFloorId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Floor", roomRequestDto.getRoom().getRoomFloorId())));
+        }
+
+        return getRoomResponseDto(roomRepository.save(room));
     }
 
     private static RoomResponseDto getRoomResponseDto(Room room){
@@ -76,7 +90,8 @@ public class RoomHelper implements CrudServiceHelperGeneric<RoomRequestDto, Room
                 .type(roomRequestDto.getRoom().getType())
                 .area(roomRequestDto.getRoom().getArea())
                 .status(roomRequestDto.getRoom().getStatus())
-                .floor(floorRepository.findById(roomRequestDto.getRoom().getRoomFloorId()).get())
+                .floor(floorRepository.findById(roomRequestDto.getRoom().getRoomFloorId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Floor", roomRequestDto.getRoom().getRoomFloorId())))
                 .build();
     }
 }

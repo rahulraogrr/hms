@@ -4,6 +4,7 @@ import com.hotel.dto.admin.department.DepartmentObjectDto;
 import com.hotel.dto.admin.department.DepartmentRequestDto;
 import com.hotel.dto.admin.department.DepartmentResponseDto;
 import com.hotel.entites.admin.Department;
+import com.hotel.exceptions.ResourceNotFoundException;
 import com.hotel.repositories.admin.DepartmentRepository;
 import com.hotel.repositories.admin.HotelRepository;
 import com.hotel.services.helpers.CrudServiceHelperGeneric;
@@ -44,7 +45,8 @@ public class DepartmentHelper implements CrudServiceHelperGeneric<DepartmentRequ
 
     @Override
     public DepartmentResponseDto findById(Integer id) {
-        return getDepartmentResponseDto(departmentRepository.findById(id).get());
+        return getDepartmentResponseDto(departmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Department", id)));
     }
 
     @Override
@@ -55,7 +57,19 @@ public class DepartmentHelper implements CrudServiceHelperGeneric<DepartmentRequ
 
     @Override
     public DepartmentResponseDto modify(Integer id, DepartmentRequestDto departmentRequestDto) {
-        return null;
+        Department department = departmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Department", id));
+
+        department.setType(departmentRequestDto.getDepartment().getType());
+        department.setName(departmentRequestDto.getDepartment().getName());
+        department.setStatus(departmentRequestDto.getDepartment().getStatus());
+
+        if (departmentRequestDto.getDepartment().getDeptHotelId() != department.getHotel().getId()) {
+            department.setHotel(hotelRepository.findById(departmentRequestDto.getDepartment().getDeptHotelId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Hotel", departmentRequestDto.getDepartment().getDeptHotelId())));
+        }
+
+        return getDepartmentResponseDto(departmentRepository.save(department));
     }
 
     private static DepartmentResponseDto getDepartmentResponseDto(Department department){
@@ -77,7 +91,8 @@ public class DepartmentHelper implements CrudServiceHelperGeneric<DepartmentRequ
                 .type(departmentRequestDto.getDepartment().getType())
                 .name(departmentRequestDto.getDepartment().getName())
                 .status(departmentRequestDto.getDepartment().getStatus())
-                .hotel(hotelRepository.findById(departmentRequestDto.getDepartment().getDeptHotelId()).get())
+                .hotel(hotelRepository.findById(departmentRequestDto.getDepartment().getDeptHotelId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Hotel", departmentRequestDto.getDepartment().getDeptHotelId())))
                 .build();
     }
 

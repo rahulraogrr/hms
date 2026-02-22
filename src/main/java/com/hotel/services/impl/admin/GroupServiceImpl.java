@@ -51,6 +51,6 @@ public class GroupServiceImpl implements GroupService {
     public GroupResponseDto modify(Integer id, GroupRequestDto requestDto) {
         log.info("Modify Group By ID : {}",id);
         groupValidator.validateRequest(requestDto);
-        return groupHelper.modifyGroup(requestDto);
+        return groupHelper.modifyGroup(id, requestDto);
     }
 }
