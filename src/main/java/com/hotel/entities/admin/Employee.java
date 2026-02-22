@@ -1,4 +1,4 @@
-package com.hotel.entites.admin;
+package com.hotel.entities.admin;
 
 import com.hotel.constants.Gender;
 import jakarta.persistence.*;
@@ -41,11 +41,15 @@ public class Employee implements Serializable {
     private String idNo;
     private String mobile;
     private Gender gender;
-    private long reportsTo;
     private int designation;
     private int status;
     private boolean currAddSameAsPermAdd;
     private int grade;
+
+    /** Self-referencing manager relationship. Null for top-level employees. */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reports_to", referencedColumnName = "id")
+    private Employee manager;
 
     @ManyToOne
     @JoinColumn(name = "emp_dept_id", referencedColumnName = "id")

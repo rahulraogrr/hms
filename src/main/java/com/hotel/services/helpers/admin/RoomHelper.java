@@ -3,7 +3,7 @@ package com.hotel.services.helpers.admin;
 import com.hotel.dto.admin.room.RoomObjectDto;
 import com.hotel.dto.admin.room.RoomRequestDto;
 import com.hotel.dto.admin.room.RoomResponseDto;
-import com.hotel.entites.admin.Room;
+import com.hotel.entities.admin.Room;
 import com.hotel.exceptions.ResourceNotFoundException;
 import com.hotel.repositories.admin.FloorRepository;
 import com.hotel.repositories.admin.RoomRepository;

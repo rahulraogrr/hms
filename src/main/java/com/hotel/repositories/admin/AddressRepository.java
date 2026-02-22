@@ -1,6 +1,6 @@
 package com.hotel.repositories.admin;
 
-import com.hotel.entites.admin.Address;
+import com.hotel.entities.admin.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

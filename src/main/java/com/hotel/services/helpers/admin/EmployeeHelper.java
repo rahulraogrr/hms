@@ -4,8 +4,8 @@ import com.hotel.dto.admin.employee.EmployeeObjectDto;
 import com.hotel.dto.admin.employee.EmployeeRequestDto;
 import com.hotel.dto.admin.employee.EmployeeResponseDto;
 import com.hotel.dto.portal.AddressDto;
-import com.hotel.entites.admin.Address;
-import com.hotel.entites.admin.Employee;
+import com.hotel.entities.admin.Address;
+import com.hotel.entities.admin.Employee;
 import com.hotel.exceptions.ResourceNotFoundException;
 import com.hotel.repositories.admin.DepartmentRepository;
 import com.hotel.repositories.admin.EmployeeRepository;
@@ -75,7 +75,12 @@ public class EmployeeHelper implements CrudServiceHelperGeneric<EmployeeRequestD
         employee.setEduType(dto.getEduType());
         employee.setIdType(dto.getIdType());
         employee.setIdNo(dto.getIdNo());
-        employee.setReportsTo(dto.getReportsTo());
+        if (dto.getReportsTo() != 0) {
+            employee.setManager(employeeRepository.findById(dto.getReportsTo())
+                    .orElseThrow(() -> new ResourceNotFoundException("Employee (manager)", dto.getReportsTo())));
+        } else {
+            employee.setManager(null);
+        }
         employee.setDesignation(dto.getDesignation());
         employee.setGrade(dto.getGrade());
         employee.setStatus(dto.getStatus());
@@ -130,7 +135,7 @@ public class EmployeeHelper implements CrudServiceHelperGeneric<EmployeeRequestD
                                 .idType(employee.getIdType())
                                 .idNo(employee.getIdNo())
                                 .empDeptId(employee.getDepartment().getId())
-                                .reportsTo(employee.getReportsTo())
+                                .reportsTo(employee.getManager() != null ? employee.getManager().getId() : 0L)
                                 .designation(employee.getDesignation())
                                 .grade(employee.getGrade())
                                 .status(employee.getStatus())
@@ -153,7 +158,11 @@ public class EmployeeHelper implements CrudServiceHelperGeneric<EmployeeRequestD
                 .eduType(employeeRequestDto.getEmployee().getEduType())
                 .idType(employeeRequestDto.getEmployee().getIdType())
                 .idNo(employeeRequestDto.getEmployee().getIdNo())
-                .reportsTo(employeeRequestDto.getEmployee().getReportsTo())
+                .manager(employeeRequestDto.getEmployee().getReportsTo() != 0
+                        ? employeeRepository.findById(employeeRequestDto.getEmployee().getReportsTo())
+                                .orElseThrow(() -> new ResourceNotFoundException("Employee (manager)",
+                                        employeeRequestDto.getEmployee().getReportsTo()))
+                        : null)
                 .designation(employeeRequestDto.getEmployee().getDesignation())
                 .grade(employeeRequestDto.getEmployee().getGrade())
                 .status(employeeRequestDto.getEmployee().getStatus())
