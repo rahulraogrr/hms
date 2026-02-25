@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -66,9 +67,13 @@ public class DepartmentHelper implements CrudServiceHelperGeneric<DepartmentRequ
         department.setName(departmentRequestDto.getDepartment().getName());
         department.setStatus(departmentRequestDto.getDepartment().getStatus());
 
-        if (departmentRequestDto.getDepartment().getDeptHotelId() != department.getHotel().getId()) {
-            department.setHotel(hotelRepository.findById(departmentRequestDto.getDepartment().getDeptHotelId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Hotel", departmentRequestDto.getDepartment().getDeptHotelId())));
+        Integer newHotelId = departmentRequestDto.getDepartment().getDeptHotelId();
+        Integer currentHotelId = department.getHotel() != null ? department.getHotel().getId() : null;
+        if (!Objects.equals(newHotelId, currentHotelId)) {
+            department.setHotel(newHotelId != null
+                    ? hotelRepository.findById(newHotelId)
+                            .orElseThrow(() -> new ResourceNotFoundException("Hotel", newHotelId))
+                    : null);
         }
 
         return getDepartmentResponseDto(departmentRepository.save(department));
@@ -82,19 +87,22 @@ public class DepartmentHelper implements CrudServiceHelperGeneric<DepartmentRequ
                                 .type(department.getType())
                                 .name(department.getName())
                                 .status(department.getStatus())
-                                .deptHotelId(department.getHotel().getId())
+                                .deptHotelId(department.getHotel() != null ? department.getHotel().getId() : null)
                                 .build()
                 )
                 .build();
     }
 
     private Department getDepartment(DepartmentRequestDto departmentRequestDto){
+        Integer hotelId = departmentRequestDto.getDepartment().getDeptHotelId();
         return Department.builder()
                 .type(departmentRequestDto.getDepartment().getType())
                 .name(departmentRequestDto.getDepartment().getName())
                 .status(departmentRequestDto.getDepartment().getStatus())
-                .hotel(hotelRepository.findById(departmentRequestDto.getDepartment().getDeptHotelId())
-                        .orElseThrow(() -> new ResourceNotFoundException("Hotel", departmentRequestDto.getDepartment().getDeptHotelId())))
+                .hotel(hotelId != null
+                        ? hotelRepository.findById(hotelId)
+                                .orElseThrow(() -> new ResourceNotFoundException("Hotel", hotelId))
+                        : null)
                 .build();
     }
 

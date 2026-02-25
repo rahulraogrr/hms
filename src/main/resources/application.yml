@@ -1,15 +1,17 @@
 ##Spring Properties
 spring:
+  jackson:
+    deserialization:
+      fail-on-null-for-primitives: false
   datasource: ##Datasource Properties
     driver-class-name: org.postgresql.Driver
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/postgres}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres}
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
     hikari:
       poolName: Hikari
       auto-commit: false
   jpa: ##JPA Properties
-    database: postgresql
     properties:
       hibernate.id.new_generator_mappings: true
       hibernate.connection.provider_disables_autocommit: true
@@ -17,7 +19,6 @@ spring:
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
       hibernate:
-        temp.use_jdbc_metadata_defaults: false
         format_sql: true
         generate_statistics: false
     open-in-view: false

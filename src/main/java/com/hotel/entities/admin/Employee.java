@@ -40,6 +40,8 @@ public class Employee implements Serializable {
     private int idType;
     private String idNo;
     private String mobile;
+
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private int designation;
     private int status;

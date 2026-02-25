@@ -32,7 +32,7 @@ class GroupHelperTest {
 
     @Test
     void createGroup() {
-        GroupResponseDto validGroup = groupHelperUnderTest.createGroup(getValidRequest());
+        GroupResponseDto validGroup = groupHelperUnderTest.create(getValidRequest());
 
         assertNotNull(validGroup);
         assertTrue(validGroup.getGroup().getId() > 0);

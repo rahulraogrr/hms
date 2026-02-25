@@ -27,6 +27,9 @@ public class GroupHelper implements CrudServiceHelperGeneric<GroupRequestDto, Gr
         this.groupRepository = groupRepository;
     }
 
+    /**
+     * Persists group from request; returns group response
+     */
     @Override
     public GroupResponseDto create(GroupRequestDto requestDto) {
         log.info("Request {}",requestDto);

@@ -14,5 +14,5 @@ public class DepartmentObjectDto {
     private int type;
     private String name;
     private int status;
-    private int deptHotelId;
+    private Integer deptHotelId;
 }
