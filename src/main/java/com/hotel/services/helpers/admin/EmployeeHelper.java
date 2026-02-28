@@ -102,7 +102,8 @@ public class EmployeeHelper implements CrudServiceHelperGeneric<EmployeeRequestD
             }
         }
 
-        if (dto.getEmpDeptId() != employee.getDepartment().getId()) {
+        int currentDeptId = employee.getDepartment() != null ? employee.getDepartment().getId() : -1;
+        if (dto.getEmpDeptId() != currentDeptId) {
             employee.setDepartment(departmentRepository.findById(dto.getEmpDeptId())
                     .orElseThrow(() -> new ResourceNotFoundException("Department", dto.getEmpDeptId())));
         }
@@ -134,7 +135,7 @@ public class EmployeeHelper implements CrudServiceHelperGeneric<EmployeeRequestD
                                 .eduType(employee.getEduType())
                                 .idType(employee.getIdType())
                                 .idNo(employee.getIdNo())
-                                .empDeptId(employee.getDepartment().getId())
+                                .empDeptId(employee.getDepartment() != null ? employee.getDepartment().getId() : 0)
                                 .reportsTo(employee.getManager() != null ? employee.getManager().getId() : 0L)
                                 .designation(employee.getDesignation())
                                 .grade(employee.getGrade())

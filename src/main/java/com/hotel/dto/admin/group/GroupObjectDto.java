@@ -3,6 +3,11 @@ package com.hotel.dto.admin.group;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.hotel.dto.portal.AddressDto;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @JsonPropertyOrder(value = {
@@ -30,8 +35,11 @@ public class GroupObjectDto {
             example = "Taj Group Of Hotels",
             required = true
     )
+    @NotBlank(message = "Group name is required")
+    @Size(max = 20, message = "Group name must not exceed 20 characters")
     private String name;
 
+    @Min(value = 1, message = "Status must be a positive value")
     @Schema(
             title = "status",
             name = "status",
@@ -41,6 +49,8 @@ public class GroupObjectDto {
     )
     private int status;
 
+    @NotNull(message = "Address is required")
+    @Valid
     @Schema(
             title = "address",
             name = "address",

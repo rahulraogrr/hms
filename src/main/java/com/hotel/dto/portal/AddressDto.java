@@ -2,90 +2,57 @@ package com.hotel.dto.portal;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 /**
- * An Address DTO
+ * Address DTO — shared across all resources that carry an address.
  */
 @EqualsAndHashCode(callSuper = false)
-@JsonPropertyOrder(
-        value = {
-                "id", "type", "address1", "address2", "city", "state", "country", "pinCode"
-        }
-)
+@JsonPropertyOrder(value = {"id", "type", "address1", "address2", "city", "state", "country", "pinCode"})
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class AddressDto {
-    @Schema(
-            title = "id",
-            name = "id",
-            example = "1",
-            description = "ID of the Address Entity. Required when we send browse request"
-    )
+
+    @Schema(title = "id", example = "1",
+            description = "ID of the Address Entity. Required when we send browse request")
     private long id;
 
-    @Schema(
-            title = "type",
-            name = "type",
-            example = "1",
-            description = "Type of address",
-            required = true
-    )
+    @Positive(message = "Address type must be a positive value")
+    @Schema(title = "type", example = "1", description = "Type of address", required = true)
     private int type;
 
-    @Schema(
-            title = "address1",
-            name = "address1",
-            example = "Churchgate",
-            description = "address description",
-            required = true
-    )
+    @NotBlank(message = "Address line 1 is required")
+    @Size(max = 100, message = "Address 1 must not exceed 100 characters")
+    @Schema(title = "address1", example = "Churchgate", description = "Primary address line", required = true)
     private String address1;
 
-    @Schema(
-            title = "address2",
-            name = "address2",
-            example = "Colaba",
-            description = "address description 2"
-    )
+    @Size(max = 100, message = "Address 2 must not exceed 100 characters")
+    @Schema(title = "address2", example = "Colaba", description = "Secondary address line")
     private String address2;
 
-    @Schema(
-            title = "city",
-            name = "city",
-            example = "Mumbai",
-            description = "City",
-            required = true
-    )
+    @NotBlank(message = "City is required")
+    @Size(max = 60, message = "City must not exceed 60 characters")
+    @Schema(title = "city", example = "Mumbai", description = "City", required = true)
     private String city;
 
-    @Schema(
-            title = "state",
-            name = "state",
-            example = "Maharashtra",
-            description = "State",
-            required = true
-    )
+    @NotBlank(message = "State is required")
+    @Size(max = 60, message = "State must not exceed 60 characters")
+    @Schema(title = "state", example = "Maharashtra", description = "State", required = true)
     private String state;
 
-    @Schema(
-            title = "country",
-            name = "country",
-            example = "India",
-            description = "Country",
-            required = true
-    )
+    @NotBlank(message = "Country is required")
+    @Size(max = 60, message = "Country must not exceed 60 characters")
+    @Schema(title = "country", example = "India", description = "Country", required = true)
     private String country;
 
-    @Schema(
-            title = "pinCode",
-            name = "pinCode",
-            example = "400005",
-            description = "Pin Code",
-            required = true
-    )
+    @NotBlank(message = "Pin code is required")
+    @Size(max = 20, message = "Pin code must not exceed 20 characters")
+    @Schema(title = "pinCode", example = "400005", description = "Pin / Postal code", required = true)
     private String pinCode;
 }

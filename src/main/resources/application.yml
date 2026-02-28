@@ -37,3 +37,11 @@ logging:
 ##Server Configuration
 server:
   port: 8085
+
+##Application JWT Configuration
+app:
+  jwt:
+    ## Min 32 characters for HMAC-SHA256. Change this before deploying to production.
+    secret: HmsJwtSecretKey-ChangeMe-Min32Chars!!
+    access-token-expiry: 1800     ## 30 minutes (seconds)
+    refresh-token-expiry: 604800  ## 7 days (seconds)
